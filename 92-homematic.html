@@ -1,0 +1,325 @@
+<!--
+
+-->
+<script type="text/x-red" data-template-name="homematic">
+	<div class="form-row" id="node-form-_method">
+        <label for="node-input-_method"><i class="fa fa-list"></i> Method</label>
+		<select id="node-input-_method">
+			<option value="Session.login">Session.login</option>
+			<option value="Session.logout">Session.logout</option>
+            <option value="Interface.setValue">Interface.setValue</option>
+			<option value="Interface.getValue">Interface.getValue</option>
+			<option value="Interface.init">Interface.init</option>
+			<option value="Device.listAllDetail">Device.listAllDetail</option>
+			<option value="Device.listAll">Device.listAll</option>
+			<option value="Event.poll">Event.poll</option>
+			<option value="Event.subscribe">Event.subscribe</option>
+			<option value="Event.unsubscribe">Event.unsubscribe</option>
+        </select>
+    </div>
+	<div class="form-row hidden" id="node-form-_interface">
+        <label for="node-input-_interface"><i class="fa fa-list"></i> Interface</label>
+		<select id="node-input-_interface">
+			<option value=""></option>
+            <option value="BidCos-RF">BidCos-RF</option>
+        </select>
+    </div>
+	<div class="form-row" id="node-form-_address">
+        <label for="node-input-_address"><i class="fa fa-list"></i> Address</label>
+		<select id="node-input-_address">
+			<option value=""></option>
+            <option value="LEQ0996940:2">LEQ0996940:2 Thermostat Unten</option>
+			<option value="LEQ0990753:1">LEQ0990753:1 Dimmer Bett</option>
+			<option value="LEQ0850231:4">LEQ0850231:4 Thermostat Bad</option>
+        </select>
+    </div>
+	<div class="form-row" id="node-form-_valueKey">
+        <label for="node-input-_valueKey"><i class="fa fa-list"></i> ValueKey</label>
+		<select id="node-input-_valueKey">
+			<option value=""></option>
+            <option value="ACTUAL_TEMPERATURE">ACTUAL_TEMPERATURE</option>
+			<option value="ACTUAL_HUMIDITY">ACTUAL_HUMIDITY</option>
+			<option value="SET_TEMPERATURE">SET_TEMPERATURE</option>
+			<option value="MANU_MODE">MANU_MODE</option>
+			<option value="AUTO_MODE">AUTO_MODE</option>
+			<option value="BOOST_MODE">BOOST_MODE</option>
+			<option value="COMFORT_MODE">COMFORT_MODE</option>
+			<option value="LOWERING_MODE">LOWERING_MODE</option>
+			<option value="PARTY_MODE_SUBMIT">PARTY_MODE_SUBMIT</option>
+			<option value="PARTY_TEMPERATURE">PARTY_TEMPERATURE</option>			
+			<option value="LEVEL">LEVEL</option>
+        </select>
+    </div>
+	<div class="form-row" id="node-form-_type">
+        <label for="node-input-_type"><i class="fa fa-list"></i> Type</label>
+		<select id="node-input-_type">
+			<option value=""></option>
+            <option value="boolean">boolean</option>
+			<option value="string">string</option>
+        </select>
+    </div>
+	<div class="form-row" id="node-form-_username">
+        <label for="node-input-_username"><i class="fa fa-tag"></i> Username</label>
+        <input type="text" id="node-input-_username" placeholder="Username">
+    </div>
+		<div class="form-row" id="node-form-_password">
+        <label for="node-input-_password"><i class="fa fa-tag"></i> Password</label>
+        <input type="password" id="node-input-_password" placeholder="Password">
+    </div>
+	<div class="form-row" id="node-form-_url">
+        <label for="node-input-_url"><i class="fa fa-tag"></i> URL</label>
+        <input type="text" id="node-input-_url" placeholder="URL">
+    </div>
+	<div class="form-row" id="node-form-_interfaceId">
+        <label for="node-input-_interfaceId"><i class="fa fa-tag"></i> InterfaceId</label>
+        <input type="text" id="node-input-_interfaceId" placeholder="InterfaceId">
+    </div>
+	<div class="form-row" id="node-form-_value">
+        <label for="node-input-_value"><i class="fa fa-tag"></i> Value</label>
+        <input type="text" id="node-input-_value" placeholder="Value">
+    </div>
+	<div class="form-row" id="node-form-_topic">
+        <label for="node-input-_topic"><i class="fa fa-tag"></i> Topic</label>
+        <input type="text" id="node-input-_topic" placeholder="Topic">
+    </div>
+	<div class="form-row" id="node-form-_name">
+        <label for="node-input-_name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-_name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="homematic">
+    <p>This Node provides commands for your WIFI370 LED controller.</p>
+    <p></p>
+    <p><b>Output:</b> Array of hex values.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('homematic',{
+        category: 'function',
+        color:"#ecf0f1",
+    	defaults : {
+			_method: {value:"",required:true},
+		    _interface: {value:""},
+			_address: {value:""},
+			_valueKey: {value:""},
+			_type: {value:""},
+			_url: {value:""},
+			_interfaceId: {value:""},
+			_value: {value:""},
+			_topic: {value:""},
+			_username: {value:""},
+			_password: {value:""},
+			_name: {value:""},
+    	},
+        inputs:1,
+        outputs:1,
+        icon : "envelope.png",
+        label: function() {
+            return this._name || "homematic";
+        },
+        labelStyle: function() {
+            return (this._name)?"node_label_italic":"";
+        },
+        oneditprepare: function() {
+		
+		    	$("#node-input-_method").change(function () {
+    			
+				clearValues();
+				hideAndShow();
+    		});
+    		$("#node-input-method").change();
+			
+			function hideAndShow() {
+			
+			var a = $("#node-input-_method").val();
+			
+    			if (a === "Session.login") {
+				$("#node-form-_interface").hide();
+				$("#node-form-_address").hide();
+				$("#node-form-_valueKey").hide();
+				$("#node-form-_type").hide();
+				$("#node-form-_username").show();
+				$("#node-form-_password").show();
+				$("#node-form-_value").hide();
+				$("#node-form-_url").hide();
+				$("#node-form-_interfaceId").hide();
+    			}
+				else if (a === "Session.logout") {
+				$("#node-form-_interface").hide();
+				$("#node-form-_address").hide();
+				$("#node-form-_valueKey").hide();
+				$("#node-form-_type").hide();
+				$("#node-form-_username").hide();
+				$("#node-form-_password").hide();
+				$("#node-form-_value").hide();
+				$("#node-form-_url").hide();
+				$("#node-form-_interfaceId").hide();
+    			}
+				else if (a === "Interface.setValue") {
+				$("#node-form-_interface").show();
+				$("#node-form-_address").show();
+				$("#node-form-_valueKey").show();
+				$("#node-form-_type").show();
+				$("#node-form-_username").hide();
+				$("#node-form-_password").hide();
+				$("#node-form-_value").show();
+				$("#node-form-_url").hide();
+				$("#node-form-_interfaceId").hide();
+    			}
+				else if (a === "Interface.getValue") {
+				$("#node-form-_interface").show();
+				$("#node-form-_address").show();
+				$("#node-form-_valueKey").show();
+				$("#node-form-_type").hide();
+				$("#node-form-_username").hide();
+				$("#node-form-_password").hide();
+				$("#node-form-_value").hide();
+				$("#node-form-_url").hide();
+				$("#node-form-_interfaceId").hide();
+    			}				
+				else if (a === "Interface.init") {
+				$("#node-form-_interface").show();
+				$("#node-form-_address").hide();
+				$("#node-form-_valueKey").hide();
+				$("#node-form-_type").hide();
+				$("#node-form-_username").hide();
+				$("#node-form-_password").hide();
+				$("#node-form-_value").hide();
+				$("#node-form-_url").show();
+				$("#node-form-_interfaceId").show();
+    			}
+				else if (a === "Device.listAllDetail") {
+				$("#node-form-_interface").hide();
+				$("#node-form-_address").hide();
+				$("#node-form-_valueKey").hide();
+				$("#node-form-_type").hide();
+				$("#node-form-_username").hide();
+				$("#node-form-_password").hide();
+				$("#node-form-_value").hide();
+				$("#node-form-_url").hide();
+				$("#node-form-_interfaceId").hide();
+    			}
+				else if (a === "Device.listAll") {
+				$("#node-form-_interface").hide();
+				$("#node-form-_address").hide();
+				$("#node-form-_valueKey").hide();
+				$("#node-form-_type").hide();
+				$("#node-form-_username").hide();
+				$("#node-form-_password").hide();
+				$("#node-form-_value").hide();
+				$("#node-form-_url").hide();
+				$("#node-form-_interfaceId").hide();
+    			}
+			}
+			
+			function clearValues() {
+			
+			var a = $("#node-input-_method").val();
+			
+    			if (a === "Session.login") {
+				$("#node-input-_interface").prop("selectedIndex", 0);
+				$("#node-input-_address").prop("selectedIndex", 0);
+				$("#node-input-_valueKey").prop("selectedIndex", 0);
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_value").val("");
+				$("#node-input-_url").val("");
+				$("#node-input-_interfaceId").val("");
+    			}
+				else if (a === "Session.logout") {
+				$("#node-input-_interface").prop("selectedIndex", 0);
+				$("#node-input-_address").prop("selectedIndex", 0);
+				$("#node-input-_valueKey").prop("selectedIndex", 0);
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+				$("#node-input-_value").val("");
+				$("#node-input-_url").val("");
+				$("#node-input-_interfaceId").val("");
+    			}
+				else if (a === "Interface.setValue") {
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+    			}
+				else if (a === "Interface.getValue") {;
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+				$("#node-input-_value").val("");
+				$("#node-input-_url").val("");
+				$("#node-input-_interfaceId").val("");
+    			}
+				else if (a === "Interface.init") {
+				$("#node-input-_address").prop("selectedIndex", 0);
+				$("#node-input-_valueKey").prop("selectedIndex", 0);
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+				$("#node-input-_value").val("");
+
+    			}
+				else if (a === "Device.listAllDetail") {
+				$("#node-input-_interface").prop("selectedIndex", 0);
+				$("#node-input-_address").prop("selectedIndex", 0);
+				$("#node-input-_valueKey").prop("selectedIndex", 0);
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+				$("#node-input-_value").val("");
+				$("#node-input-_url").val("");
+				$("#node-input-_interfaceId").val("");
+    			}
+				else if (a === "Device.listAll") {
+				$("#node-input-_interface").prop("selectedIndex", 0);
+				$("#node-input-_address").prop("selectedIndex", 0);
+				$("#node-input-_valueKey").prop("selectedIndex", 0);
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+				$("#node-input-_value").val("");
+				$("#node-input-_url").val("");
+				$("#node-input-_interfaceId").val("");
+    			}
+				else if (a === "Event.poll") {
+				$("#node-input-_interface").prop("selectedIndex", 0);
+				$("#node-input-_address").prop("selectedIndex", 0);
+				$("#node-input-_valueKey").prop("selectedIndex", 0);
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+				$("#node-input-_value").val("");
+				$("#node-input-_url").val("");
+				$("#node-input-_interfaceId").val("");
+    			}
+				else if (a === "Event.subscribe") {
+				$("#node-input-_interface").prop("selectedIndex", 0);
+				$("#node-input-_address").prop("selectedIndex", 0);
+				$("#node-input-_valueKey").prop("selectedIndex", 0);
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+				$("#node-input-_value").val("");
+				$("#node-input-_url").val("");
+				$("#node-input-_interfaceId").val("");
+    			}
+				else if (a === "Event.unsubscribe") {
+				$("#node-input-_interface").prop("selectedIndex", 0);
+				$("#node-input-_address").prop("selectedIndex", 0);
+				$("#node-input-_valueKey").prop("selectedIndex", 0);
+				$("#node-input-_type").prop("selectedIndex", 0);
+				$("#node-input-_username").val("");
+				$("#node-input-_password").val("");
+				$("#node-input-_value").val("");
+				$("#node-input-_url").val("");
+				$("#node-input-_interfaceId").val("");
+    			}
+			
+			}
+
+        },
+    	oneditsave : function () {		
+			$("#node-input-_name").val($("#node-input-_method").val()+" "+$("#node-input-_address").val()+" "+$("#node-input-_valueKey").val());
+			$("#node-input-_topic").val($("#node-input-_method").val()+"_"+$("#node-input-_address").val()+"_"+$("#node-input-_valueKey").val());
+    	}
+    });
+</script>
