@@ -1,0 +1,28 @@
+{
+  "name": "node-red-contrib-homematic",
+  "version": "1.0.0",
+  "description": "node-red-node to control homematic devices",
+  "main": "92-homematic.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/92-homematic_spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firsttris/node-red-contrib-homematic.git"
+  },
+  "keywords": [
+    "homematic",
+    "node-red",
+    "internet-of-things",
+    "iot"
+  ],
+  "author": "Tristan Teufel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/firsttris/node-red-contrib-homematic/issues"
+  },
+  "homepage": "https://github.com/firsttris/node-red-contrib-homematic"
+}
