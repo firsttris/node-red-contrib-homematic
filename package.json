@@ -19,19 +19,14 @@
     "internet-of-things",
     "iot"
   ],
-  "node-red"      : {
-      "nodes"     : {
-          "homematic": "92-homematic.js",
-      }
-  },
-  "devDependencies": {
-      "mocha": "1.21.4",
-      "should": "4.0.4",
-  },
   "author": "Tristan Teufel",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/firsttris/node-red-contrib-homematic/issues"
+  },
+  "devDependencies": {
+      "mocha": "1.21.4",
+      "should": "4.0.4"
   },
   "homepage": "https://github.com/firsttris/node-red-contrib-homematic"
 }
