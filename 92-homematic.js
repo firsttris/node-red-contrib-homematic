@@ -11,6 +11,7 @@ module.exports = function(RED) {
 	this._username = n._username;
 	this._password = n._password;
 	this._url = n._url;
+	this._customAdress = n._customAdress;
 	this._interfaceId = n._interfaceId;
 	this._value = n._value;
 	this._topic = n._topic;
@@ -31,7 +32,11 @@ module.exports = function(RED) {
 		params["interface"] = node._interface;
 	    }
 	    if (node._address !== "") {
-		params["address"] = node._address;
+		if (node._address == "CustomAdress") {
+		    params["address"] = node._customAdress;
+		} else {
+		    params["address"] = node._address;
+		}
 	    }
 	    if (node._valueKey !== "") {
 		params["valueKey"] = node._valueKey;
