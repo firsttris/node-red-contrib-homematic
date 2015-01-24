@@ -43,15 +43,7 @@ module.exports = function(grunt) {
                 "sub": true       // don't warn that foo['bar'] should be written as foo.bar
             },
             all: {
-                src: ['*/*.js'],
-                filter: function(filepath) { // on some developer machines the test coverage HTML report utilities cause further failures
-                    if(filepath.indexOf("Gruntfile.js") === -1) {
-                        return true;   
-                    } else {
-                        console.log("Filtered out " + filepath + " from the jshint checks");
-                        return false;
-                    }
-                }
+                src: ['92-homematic.js'],
             },
         },
         inlinelint: {
