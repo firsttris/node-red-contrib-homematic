@@ -24,6 +24,11 @@
   "bugs": {
     "url": "https://github.com/firsttris/node-red-contrib-homematic/issues"
   },
+  "node-red"      : {
+      "nodes"     : {
+          "homematic": "aws/92-homematic.js"
+      }
+  },
   "devDependencies": {
       "fs-extra": "0.11.1",
       "grunt": "0.4.5",
