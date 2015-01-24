@@ -1,4 +1,3 @@
-
 module.exports = function (RED) {
 	"use strict";
 
@@ -63,7 +62,6 @@ module.exports = function (RED) {
 			if(node._method == "Session.logout") { RED.settings.functionGlobalContext["currentSessionid"] = ""; }
 
 			var headers = new Object();
-
 
 			msg.payload = myrequest;
 			headers["Content-Length"] = msg.length;
