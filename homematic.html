@@ -94,11 +94,17 @@
     <p>This Node provides predefined commands to control homematic devices 
        using the JSON-RPC API.</p>
     <p>Select a method and fill in the required fields.</p>
-	<p></p
+	<p></p>
+	<p>To use JSON-RPC with your ccu your need to optain a SessionId using
+	the "Session.Login" method. You can save the SessionId to "context.global.currentSessionid"
+	and each msg you create using this node will use this SessionId automatically. 
+	After some time your SessionId will expire so you need to create some logic to optian a new one.
+	</p>
+	<p></p>
     <p><b>Outputs:</b> remote procedure calls which can be 
           send using http-request node</p>
 	<p></p>
-	<p>API Documentation: ipofyourcc2/api/homematic.cgi</p>
+	<p>API Documentation: ipofyourcc/api/homematic.cgi</p>
 	<p></p>
 	<p>You can easily extend this module to fit your needs
 	by editing the html file.</p> 
