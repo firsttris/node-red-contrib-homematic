@@ -23,7 +23,7 @@
   },
   "node-red"      : {
       "nodes"     : {
-          "homematic": "aws/92-homematic.js"
+          "homematic": "homematic.js"
       }
   },
   "devDependencies": {

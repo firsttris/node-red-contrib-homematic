@@ -1,6 +1,6 @@
 var should = require("should");
 
-var homematicNode = require("../92-homematic.js");
+var homematicNode = require("../homematic.js");
 var helper = require("./helper.js");
 
 describe('ChangeNode', function() {
