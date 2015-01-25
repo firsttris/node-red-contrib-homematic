@@ -11,5 +11,14 @@ This node provides predefined commands to control homematic devices using the JS
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic1.PNG)
 
 ## Install
+```chef
+cd node-red/
 npm install node-red-contrib-homematic
+```
 
+## Run Tests?
+```chef
+npm install mocha
+cd node-red/node_modules/node-red-contrib-homematic/
+mocha test/homematic_spec.js
+```
