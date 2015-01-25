@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-homematic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "node-red-node to control homematic devices",
   "main": "92-homematic.js",
   "directories": {
