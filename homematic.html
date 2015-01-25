@@ -28,12 +28,12 @@
             <option value="LEQ0996940:2">LEQ0996940:2 Thermostat Unten</option>
 			<option value="LEQ0990753:1">LEQ0990753:1 Dimmer Bett</option>
 			<option value="LEQ0850231:4">LEQ0850231:4 Thermostat Bad</option>
-			<option value="CustomAdress">Custom Adress</option>
+			<option value="customAddress">Custom Adress</option>
         </select>
     </div>
-	<div class="form-row" id="node-form-_customAdress">
-        <label for="node-input-_customAdress"><i class="fa fa-tag"></i> Adress</label>
-        <input type="text" id="node-input-_customAdress" placeholder="Adress">
+	<div class="form-row" id="node-form-_customAddress">
+        <label for="node-input-_customAddress"><i class="fa fa-tag"></i> Adress</label>
+        <input type="text" id="node-input-_customAddress" placeholder="Adress">
     </div>
 	<div class="form-row" id="node-form-_valueKey">
         <label for="node-input-_valueKey"><i class="fa fa-list"></i> ValueKey</label>
@@ -121,7 +121,7 @@ RED.nodes.registerType('homematic',{
 	_interfaceId: {value:""},
 	_value: {value:""},
 	_topic: {value:""},
-	_customAdress: {value:""},
+	_customAddress: {value:""},
 	_username: {value:""},
 	_password: {value:""},
 	_name: {value:""},
@@ -153,18 +153,18 @@ RED.nodes.registerType('homematic',{
 
 	function hideAndShowOnAdressChange(selectedAdress) {
 
-	    if (selectedAdress === "CustomAdress") {
-		$("#node-form-_customAdress").show();
+	    if (selectedAdress === "customAddress") {
+		$("#node-form-_customAddress").show();
 	    } else {
-		$("#node-form-_customAdress").hide();
+		$("#node-form-_customAddress").hide();
 	    }
 
 	}
 
 	function clearValuesOnAdressChange(selectedAdress) {
 
-	    if (selectedAdress !== "CustomAdress") {
-		$("#node-input-_customAdress").val("");
+	    if (selectedAdress !== "customAddress") {
+		$("#node-input-_customAddress").val("");
 	    } 
 
 	}

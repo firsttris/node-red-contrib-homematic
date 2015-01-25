@@ -11,7 +11,7 @@ module.exports = function(RED) {
 	this._username = n._username;
 	this._password = n._password;
 	this._url = n._url;
-	this._customAdress = n._customAdress;
+	this._customAddress = n._customAddress;
 	this._interfaceId = n._interfaceId;
 	this._value = n._value;
 	this._topic = n._topic;
@@ -44,8 +44,8 @@ module.exports = function(RED) {
 		params["interface"] = node._interface;
 	    }
 	    if (isNotEmptyOrUndefined(node._address)) {
-		if (node._address == "CustomAdress") {
-		    params["address"] = node._customAdress;
+		if (node._address == "customAddress") {
+		    params["address"] = node._customAddress;
 		} else {
 		    params["address"] = node._address;
 		}
@@ -86,7 +86,9 @@ module.exports = function(RED) {
 	    headers["Accept"] = "application/json";
 	    msg.headers = headers;
 	    //console.log("Method: " + node._method + " ValueKey: " + node.valueKey);
+	    console.log("**************************PAYLOAD START********************************");
 	    console.log(msg);
+	    console.log("***************************PAYLOAD END*********************************");
 	    node.send(msg);
 	});
     }
