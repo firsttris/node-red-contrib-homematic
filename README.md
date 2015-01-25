@@ -8,6 +8,7 @@ integrate your homematic device with <b>Node-RED</b>
 node-red-contrib-homematic provides predefined commands to control homematic devices connected to the CCU using the JSON-RPC API in <b>Node-RED</b>.<br>
 <b>Node-RED</b> - is a visual tool for wiring the Internet of Things - read more @http://nodered.org<br>
 This node outputs a msg object containing remote procedure calls which can be send to the CCU using the http-request node.
+
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic2.PNG)
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic1.PNG)
