@@ -84,10 +84,10 @@
         <label for="node-input-_topic"><i class="fa fa-tag"></i> Topic</label>
         <input type="text" id="node-input-_topic" placeholder="Topic">
     </div>
-	<div class="form-row" id="node-form-_name">
-        <label for="node-input-_name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-_name" placeholder="Name">
-    </div>
+<div class="form-row" id="node-form-_name">
+<label for="node-input-_name"><i class="fa fa-tag"></i> Name</label>
+<input type="text" id="node-input-_name" placeholder="Name">
+</div>
 </script>
 
 <script type="text/x-red" data-help-name="homematic">
@@ -113,208 +113,220 @@
 </script>
 
 <script type="text/javascript">
-RED.nodes.registerType('homematic',{
-    category: 'function',
-    color:"#ecf0f1",
-    defaults : {
-	_method: {value:"",required:true},
-	_interface: {value:""},
-	_address: {value:""},
-	_valueKey: {value:""},
-	_type: {value:""},
-	_url: {value:""},
-	_interfaceId: {value:""},
-	_value: {value:""},
-	_topic: {value:""},
-	_customAddress: {value:""},
-	_username: {value:""},
-	_password: {value:""},
-	_name: {value:""},
-    },
-    inputs:1,
-    outputs:1,
-    icon : "envelope.png",
-    label: function() {
-	return this._name || "homematic";
-    },
-    labelStyle: function() {
-	return (this._name)?"node_label_italic":"";
-    },
-    oneditprepare: function() {
+    RED.nodes.registerType('homematic', {
+	category : 'function',
+	color : "#ecf0f1",
+	defaults : {
+	    _method : {
+		value : "",
+		required : true
+	    },
+	    _interface : {
+		value : ""
+	    },
+	    _address : {
+		value : ""
+	    },
+	    _valueKey : {
+		value : ""
+	    },
+	    _type : {
+		value : ""
+	    },
+	    _url : {
+		value : ""
+	    },
+	    _interfaceId : {
+		value : ""
+	    },
+	    _value : {
+		value : ""
+	    },
+	    _topic : {
+		value : ""
+	    },
+	    _customAddress : {
+		value : ""
+	    },
+	    _username : {
+		value : ""
+	    },
+	    _password : {
+		value : ""
+	    },
+	    _name : {
+		value : ""
+	    },
+	},
+	inputs : 1,
+	outputs : 1,
+	icon : "envelope.png",
+	label : function() {
+	    return this._name || "homematic";
+	},
+	labelStyle : function() {
+	    return (this._name) ? "node_label_italic" : "";
+	},
+	oneditprepare : function() {
 
-	$("#node-input-_address").change(function () {
-	    var selectedAdress = $("#node-input-_address").val();
-	    hideAndShowOnAdressChange(selectedAdress);
-	    clearValuesOnAdressChange(selectedAdress);
-	});
-	$("#node-input-_address").change();
+	    $("#node-input-_address").change(function() {
+		var selectedAdress = $("#node-input-_address").val();
+		hideAndShowOnAdressChange(selectedAdress);
+		clearValuesOnAdressChange(selectedAdress);
+	    });
+	    $("#node-input-_address").change();
 
-	$("#node-input-_method").change(function () {
-	    var selectedMethod = $("#node-input-_method").val();
-	    clearValuesOnMethodChange(selectedMethod);
-	    hideAndShowOnMethodChange(selectedMethod);
-	});
-	$("#node-input-method").change();
+	    $("#node-input-_method").change(function() {
+		var selectedMethod = $("#node-input-_method").val();
+		clearValuesOnMethodChange(selectedMethod);
+		hideAndShowOnMethodChange(selectedMethod);
+	    });
+	    $("#node-input-method").change();
 
-	function hideAndShowOnAdressChange(selectedAdress) {
+	    function hideAndShowOnAdressChange(selectedAdress) {
 
-	    if (selectedAdress === "customAddress") {
-		$("#node-form-_customAddress").show();
-	    } else {
-		$("#node-form-_customAddress").hide();
+		if (selectedAdress === "customAddress") {
+		    $("#node-form-_customAddress").show();
+		} else {
+		    $("#node-form-_customAddress").hide();
+		}
+
 	    }
 
+	    function clearValuesOnAdressChange(selectedAdress) {
+
+		if (selectedAdress !== "customAddress") {
+		    $("#node-input-_customAddress").val("");
+		}
+
+	    }
+
+	    function hideAndShowOnMethodChange(selectedMethod) {
+
+		if (selectedMethod === "Session.login") {
+		    hideFields(true, true, true, true, false, false, true, true, true);
+		} else if (selectedMethod === "Session.logout") {
+		    hideFields(true, true, true, true, true, true, true, true, true);
+		} else if (selectedMethod === "Interface.setValue") {
+		    hideFields(false, false, false, false, true, true, false, true, true);
+		} else if (selectedMethod === "Interface.getValue") {
+		    hideFields(false, false, false, true, true, true, true, true, true);
+		} else if (selectedMethod === "Interface.init") {
+		    hideFields(false, true, true, true, true, true, true, false, false);
+		} else if (selectedMethod === "Device.listAllDetail") {
+		    hideFields(true, true, true, true, true, true, true, true, true);
+		} else if (selectedMethod === "Device.listAll") {
+		    hideFields(true, true, true, true, true, true, true, true, true);
+		}
+	    }
+
+	    function hideFields(_interface, _address, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
+		if (_interface) {
+		    $("#node-form-_interface").hide();
+		} else {
+		    $("#node-form-_interface").show();
+		}
+
+		if (_address) {
+		    $("#node-form-_address").hide();
+		} else {
+		    $("#node-form-_address").show();
+		}
+
+		if (_valueKey) {
+		    $("#node-form-_valueKey").hide();
+		} else {
+		    $("#node-form-_valueKey").show();
+		}
+
+		if (_type) {
+		    $("#node-form-_type").hide();
+		} else {
+		    $("#node-form-_type").show();
+		}
+
+		if (_username) {
+		    $("#node-form-_username").hide();
+		} else {
+		    $("#node-form-_username").show();
+		}
+
+		if (_password) {
+		    $("#node-form-_password").hide();
+		} else {
+		    $("#node-form-_password").show();
+		}
+
+		if (_value) {
+		    $("#node-form-_value").hide();
+		} else {
+		    $("#node-form-_value").show();
+		}
+
+		if (_url) {
+		    $("#node-form-_url").hide();
+		} else {
+		    $("#node-form-_url").show();
+		}
+
+		if (_interfaceId) {
+		    $("#node-form-_interfaceId").hide();
+		} else {
+		    $("#node-form-_interfaceId").show();
+		}
+	    }
+
+	    function clearValuesOnMethodChange(selectedMethod) {
+
+		if (selectedMethod === "Session.login") {
+		    clearValueOnField(true, true, true, true, false, false, true, true, true);
+		} else if (selectedMethod === "Session.logout") {
+		    clearValueOnField(true, true, true, true, true, true, true, true, true);
+		} else if (selectedMethod === "Interface.setValue") {
+		    clearValueOnField(false, false, false, false, true, true, false, false, false);
+		} else if (selectedMethod === "Interface.getValue") {
+		    clearValueOnField(false, false, false, true, true, true, true, true, true);
+		} else if (selectedMethod === "Interface.init") {
+		    clearValueOnField(false, true, true, true, true, true, true, false, false);
+		} else if (selectedMethod === "Device.listAllDetail") {
+		    clearValueOnField(true, true, true, true, true, true, true, true, true);
+		} else if (selectedMethod === "Device.listAll") {
+		    clearValueOnField(true, true, true, true, true, true, true, true, true);
+		} else if (selectedMethod === "Event.poll") {
+		    clearValueOnField(true, true, true, true, true, true, true, true, true);
+		} else if (selectedMethod === "Event.subscribe") {
+		    clearValueOnField(true, true, true, true, true, true, true, true, true);
+		} else if (selectedMethod === "Event.unsubscribe") {
+		    clearValueOnField(true, true, true, true, true, true, true, true, true);
+		}
+
+	    }
+
+	    function clearValueOnField(_interface, _address, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
+		if (_interface)
+		    $("#node-input-_interface").prop("selectedIndex", 0);
+		if (_address)
+		    $("#node-input-_address").prop("selectedIndex", 0);
+		if (_valueKey)
+		    $("#node-input-_valueKey").prop("selectedIndex", 0);
+		if (_type)
+		    $("#node-input-_type").prop("selectedIndex", 0);
+		if (_username)
+		    $("#node-input-_username").val("");
+		if (_password)
+		    $("#node-input-_password").val("");
+		if (_value)
+		    $("#node-input-_value").val("");
+		if (_url)
+		    $("#node-input-_url").val("");
+		if (_interfaceId)
+		    $("#node-input-_interfaceId").val("");
+	    }
+
+	},
+	oneditsave : function() {
+	    $("#node-input-_name").val($("#node-input-_method").val() + " " + $("#node-input-_address").val() + " " + $("#node-input-_valueKey").val());
+	    $("#node-input-_topic").val($("#node-input-_method").val() + "_" + $("#node-input-_address").val() + "_" + $("#node-input-_valueKey").val());
 	}
-
-	function clearValuesOnAdressChange(selectedAdress) {
-
-	    if (selectedAdress !== "customAddress") {
-		$("#node-input-_customAddress").val("");
-	    } 
-
-	}
-
-	function hideAndShowOnMethodChange(selectedMethod) {
-
-	    if (selectedMethod === "Session.login") {
-		hideFields(true, true, true, true, false, false, true, true, true);
-	    }
-	    else if (selectedMethod === "Session.logout") {
-		hideFields(true, true, true, true, true, true, true, true, true);
-	    }
-	    else if (selectedMethod === "Interface.setValue") {
-		hideFields(false, false, false, false, true, true, false, true, true);
-	    }
-	    else if (selectedMethod === "Interface.getValue") {
-		hideFields(false, false, false, true, true, true, true, true, true);
-	    }				
-	    else if (selectedMethod === "Interface.init") {
-		hideFields(false, true, true, true, true, true, true, false, false);
-	    }
-	    else if (selectedMethod === "Device.listAllDetail") {
-		hideFields(true, true, true, true, true, true, true, true, true);
-	    }
-	    else if (selectedMethod === "Device.listAll") {
-		hideFields(true, true, true, true, true, true, true, true, true);
-	    }
-	}
-
-	function hideFields(_interface, _address, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
-	    if(_interface) {
-		$("#node-form-_interface").hide();
-	    } else { 
-		$("#node-form-_interface").show();
-	    }
-
-	    if(_address) {
-		$("#node-form-_address").hide();
-	    } else { 
-		$("#node-form-_address").show();
-	    }
-
-	    if(_valueKey) {
-		$("#node-form-_valueKey").hide();
-	    } else { 
-		$("#node-form-_valueKey").show();
-	    }
-
-	    if(_type) {
-		$("#node-form-_type").hide();
-	    } else { 
-		$("#node-form-_type").show();
-	    }
-
-	    if(_username) {
-		$("#node-form-_username").hide();
-	    } else { 
-		$("#node-form-_username").show();
-	    }
-
-	    if(_password) {
-		$("#node-form-_password").hide();
-	    } else { 
-		$("#node-form-_password").show();
-	    }
-
-	    if(_value) {
-		$("#node-form-_value").hide();
-	    } else { 
-		$("#node-form-_value").show();
-	    }
-
-	    if(_url) {
-		$("#node-form-_url").hide();
-	    } else { 
-		$("#node-form-_url").show();
-	    }
-
-	    if(_interfaceId) {
-		$("#node-form-_interfaceId").hide();
-	    } else { 
-		$("#node-form-_interfaceId").show();
-	    }
-	}
-
-	function clearValuesOnMethodChange(selectedMethod) {
-
-	    if (selectedMethod === "Session.login") {
-		clearValueOnField(true, true, true, true, false, false, true, true, true);
-	    }
-	    else if (selectedMethod === "Session.logout") {
-		clearValueOnField(true, true, true, true, true, true, true, true, true);
-	    }
-	    else if (selectedMethod === "Interface.setValue") {
-		clearValueOnField(false, false, false, false, true, true, false, false, false);
-	    }
-	    else if (selectedMethod === "Interface.getValue") {
-		clearValueOnField(false, false, false, true, true, true, true, true, true);
-	    }
-	    else if (selectedMethod === "Interface.init") {
-		clearValueOnField(false, true, true, true, true, true, true, false, false);
-	    }
-	    else if (selectedMethod === "Device.listAllDetail") {
-		clearValueOnField(true, true, true, true, true, true, true, true, true);
-	    }
-	    else if (selectedMethod === "Device.listAll") {
-		clearValueOnField(true, true, true, true, true, true, true, true, true);
-	    }
-	    else if (selectedMethod === "Event.poll") {
-		clearValueOnField(true, true, true, true, true, true, true, true, true);
-	    }
-	    else if (selectedMethod === "Event.subscribe") {
-		clearValueOnField(true, true, true, true, true, true, true, true, true);
-	    }
-	    else if (selectedMethod === "Event.unsubscribe") {
-		clearValueOnField(true, true, true, true, true, true, true, true, true);
-	    }
-
-	}
-
-	function clearValueOnField(_interface, _address, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
-	    if(_interface)
-		$("#node-input-_interface").prop("selectedIndex", 0);
-	    if(_address)
-		$("#node-input-_address").prop("selectedIndex", 0);
-	    if(_valueKey)
-		$("#node-input-_valueKey").prop("selectedIndex", 0);
-	    if(_type)
-		$("#node-input-_type").prop("selectedIndex", 0);
-	    if(_username)
-		$("#node-input-_username").val("");
-	    if(_password)
-		$("#node-input-_password").val("");
-	    if(_value)
-		$("#node-input-_value").val("");
-	    if(_url)
-		$("#node-input-_url").val("");
-	    if(_interfaceId)
-		$("#node-input-_interfaceId").val("");
-	}
-
-    },
-    oneditsave : function () {		
-	$("#node-input-_name").val($("#node-input-_method").val()+" "+$("#node-input-_address").val()+" "+$("#node-input-_valueKey").val());
-	$("#node-input-_topic").val($("#node-input-_method").val()+"_"+$("#node-input-_address").val()+"_"+$("#node-input-_valueKey").val());
-    }
-});
+    });
 </script>
