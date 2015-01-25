@@ -43,7 +43,7 @@ module.exports = function(grunt) {
                 "sub": true       // don't warn that foo['bar'] should be written as foo.bar
             },
             all: {
-                src: ['92-homematic.js'],
+                src: ['homematic.js'],
             },
         },
         inlinelint: {
