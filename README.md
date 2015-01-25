@@ -17,10 +17,9 @@ cd node-red/
 npm install node-red-contrib-homematic
 ```
 
-### Some methods/interfaces/adresses/valueKeys are missing?
+### Something missing?
 feel free to create a pull request!
-
-#### But first run some tests!
+but first run some tests...
 ```chef
 npm install -g mocha
 cd node-red/node_modules/node-red-contrib-homematic/
