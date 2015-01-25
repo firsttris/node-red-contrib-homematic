@@ -17,46 +17,58 @@ module.exports = function(RED) {
 	this._topic = n._topic;
 	this._name = n._name;
 	var node = this;
+	
+	function isNotEmptyOrUndefined(field) {
+	   if((typeof field == "undefined") || (field == "")) {
+	       return false;
+	   } else {
+	       return true;
+	   }
+	}
 
 	this.on('input', function(msg) {
-
+	    
+	    if (isNotEmptyOrUndefined(node._topic)) {
 	    msg.topic = node._topic;
+	    }
 	    var myrequest = {};
 	    myrequest.method = node._method;
 	    var params = {};
 
-	    if (RED.settings.functionGlobalContext["currentSessionid"] !== "") {
+
+	    if (isNotEmptyOrUndefined(RED.settings.functionGlobalContext) && isNotEmptyOrUndefined(RED.settings.functionGlobalContext["currentSessionid"])) {
 		params["_session_id_"] = RED.settings.functionGlobalContext["currentSessionid"];
 	    }
-	    if (node._interface !== "") {
+
+	    if (isNotEmptyOrUndefined(node._interface)) {
 		params["interface"] = node._interface;
 	    }
-	    if (node._address !== "") {
+	    if (isNotEmptyOrUndefined(node._address)) {
 		if (node._address == "CustomAdress") {
 		    params["address"] = node._customAdress;
 		} else {
 		    params["address"] = node._address;
 		}
 	    }
-	    if (node._valueKey !== "") {
+	    if (isNotEmptyOrUndefined(node._valueKey)) {
 		params["valueKey"] = node._valueKey;
 	    }
-	    if (node._type !== "") {
+	    if (isNotEmptyOrUndefined(node._type)) {
 		params["type"] = node._type;
 	    }
-	    if (node._username !== "") {
+	    if (isNotEmptyOrUndefined(node._username)) {
 		params["username"] = node._username;
 	    }
-	    if (node._password !== "") {
+	    if (isNotEmptyOrUndefined(node._password)) {
 		params["password"] = node._password;
 	    }
-	    if (node._url !== "") {
+	    if (isNotEmptyOrUndefined(node._url)) {
 		params["url"] = node._url;
 	    }
-	    if (node._interfaceId !== "") {
+	    if (isNotEmptyOrUndefined(node._interfaceId)) {
 		params["interfaceId"] = node._interfaceId;
 	    }
-	    if (node._value !== "") {
+	    if (isNotEmptyOrUndefined(node._value)) {
 		params["value"] = node._value;
 	    }
 
@@ -68,11 +80,12 @@ module.exports = function(RED) {
 
 	    var headers = {};
 	    msg.payload = myrequest;
-	    headers["Content-Length"] = msg.length;
+
+	    //headers["Content-Length"] = msg.length;
 	    headers["Content-Type"] = "application/json";
 	    headers["Accept"] = "application/json";
 	    msg.headers = headers;
-	    console.log("Method: " + node._method + " ValueKey: " + node.valueKey);
+	    //console.log("Method: " + node._method + " ValueKey: " + node.valueKey);
 	    console.log(msg);
 	    node.send(msg);
 	});
