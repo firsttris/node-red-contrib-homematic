@@ -17,7 +17,7 @@ module.exports = function(RED) {
 	this._topic = n._topic;
 	this._name = n._name;
 	var node = this;
-
+	
 	function isNotEmptyOrUndefined(field) {
 	    if ((typeof field === "undefined") || (field === "")) {
 		return false;
@@ -35,8 +35,7 @@ module.exports = function(RED) {
 	    myrequest.method = node._method;
 	    var params = {};
 
-	    if (isNotEmptyOrUndefined(RED.settings.functionGlobalContext)
-		    && isNotEmptyOrUndefined(RED.settings.functionGlobalContext["currentSessionid"])) {
+	    if (isNotEmptyOrUndefined(RED.settings.functionGlobalContext) && isNotEmptyOrUndefined(RED.settings.functionGlobalContext["currentSessionid"])) {
 		params["_session_id_"] = RED.settings.functionGlobalContext["currentSessionid"];
 	    }
 
