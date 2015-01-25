@@ -17,26 +17,26 @@ module.exports = function(RED) {
 	this._topic = n._topic;
 	this._name = n._name;
 	var node = this;
-	
+
 	function isNotEmptyOrUndefined(field) {
-	   if((typeof field === "undefined") || (field === "")) {
-	       return false;
-	   } else {
-	       return true;
-	   }
+	    if ((typeof field === "undefined") || (field === "")) {
+		return false;
+	    } else {
+		return true;
+	    }
 	}
 
 	this.on('input', function(msg) {
-	    
+
 	    if (isNotEmptyOrUndefined(node._topic)) {
-	    msg.topic = node._topic;
+		msg.topic = node._topic;
 	    }
 	    var myrequest = {};
 	    myrequest.method = node._method;
 	    var params = {};
 
-
-	    if (isNotEmptyOrUndefined(RED.settings.functionGlobalContext) && isNotEmptyOrUndefined(RED.settings.functionGlobalContext["currentSessionid"])) {
+	    if (isNotEmptyOrUndefined(RED.settings.functionGlobalContext)
+		    && isNotEmptyOrUndefined(RED.settings.functionGlobalContext["currentSessionid"])) {
 		params["_session_id_"] = RED.settings.functionGlobalContext["currentSessionid"];
 	    }
 
@@ -81,11 +81,12 @@ module.exports = function(RED) {
 	    var headers = {};
 	    msg.payload = myrequest;
 
-	    //headers["Content-Length"] = msg.length;
+	    // headers["Content-Length"] = msg.length;
 	    headers["Content-Type"] = "application/json";
 	    headers["Accept"] = "application/json";
 	    msg.headers = headers;
-	    //console.log("Method: " + node._method + " ValueKey: " + node.valueKey);
+	    // console.log("Method: " + node._method + " ValueKey: " +
+	    // node.valueKey);
 	    console.log("**************************PAYLOAD START********************************");
 	    console.log(msg);
 	    console.log("***************************PAYLOAD END*********************************");
