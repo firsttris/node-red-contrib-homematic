@@ -19,7 +19,7 @@ module.exports = function(RED) {
 	var node = this;
 	
 	function isNotEmptyOrUndefined(field) {
-	   if((typeof field == "undefined") || (field == "")) {
+	   if((typeof field === "undefined") || (field === "")) {
 	       return false;
 	   } else {
 	       return true;
@@ -74,7 +74,7 @@ module.exports = function(RED) {
 
 	    myrequest.params = params;
 
-	    if (node._method == "Session.logout") {
+	    if (node._method === "Session.logout") {
 		RED.settings.functionGlobalContext["currentSessionid"] = "";
 	    }
 
