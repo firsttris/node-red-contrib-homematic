@@ -6,9 +6,6 @@
   "directories": {
     "test": "test"
   },
-  "scripts": {
-    "test": "mocha test/92-homematic_spec.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/firsttris/node-red-contrib-homematic.git"
