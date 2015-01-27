@@ -67,7 +67,10 @@ module.exports = function(RED) {
 	    if (isNotEmptyOrUndefined(node._interfaceId)) {
 		params["interfaceId"] = node._interfaceId;
 	    }
-	    if (isNotEmptyOrUndefined(node._value)) {
+	    if (isNotEmptyOrUndefined(msg.payload) && isNotEmptyOrUndefined(msg.payload.value)) {
+		params["value"] = msg.payload.value;
+	    }
+	    else if (isNotEmptyOrUndefined(node._value)) {
 		params["value"] = node._value;
 	    }
 

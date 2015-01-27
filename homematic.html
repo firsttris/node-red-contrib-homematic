@@ -25,9 +25,11 @@
         <label for="node-input-_address"><i class="fa fa-list"></i> Address</label>
 		<select id="node-input-_address">
 			<option value=""></option>
-            <option value="LEQ0996940:2">LEQ0996940:2 Thermostat Unten</option>
-			<option value="LEQ0990753:1">LEQ0990753:1 Dimmer Bett</option>
-			<option value="LEQ0850231:4">LEQ0850231:4 Thermostat Bad</option>
+            <option value="LEQ0996940:2">LEQ0996940:2 WandThermostat</option>
+			<option value="LEQ0990753:1">LEQ0990753:1 DimmerOben</option>
+			<option value="LEQ0850231:4">LEQ0850231:4 BandThermostat</option>
+			<option value="LEQ0884092:1">LEQ0884092:1</option>
+			<option value="LEQ0884092:2">LEQ0884092:2</option>
 			<option value="customAddress">Custom Adress</option>
         </select>
     </div>
@@ -50,6 +52,7 @@
 			<option value="PARTY_MODE_SUBMIT">PARTY_MODE_SUBMIT</option>
 			<option value="PARTY_TEMPERATURE">PARTY_TEMPERATURE</option>			
 			<option value="LEVEL">LEVEL</option>
+			<option value="LEVEL">STATE</option>
         </select>
     </div>
 	<div class="form-row" id="node-form-_type">
@@ -100,7 +103,15 @@
 	and each msg you create using this node will use this SessionId automatically. 
 	After some time your SessionId will expire so you need to create some logic to optian a new one.
 	</p>
+	<p>In order to communicate with your homematic device you need to find out the serialnumber.
+	An easy way to find out the serialnumber of your device is using the XML-API addonn provided by
+	<a href="http://www.homematic-inside.de/software/addons/item/xmlapi" target="_blank">homematic inside</a>
+	in the statelist.cgi your will find all devices with all serialnumbers.
+	In the Homematic WebUI you will also find the main part of the serialnumber, so you can easily identify
+	your device.</p>
+	<p>The Adress Field (Custom Adress) represents the serialnumber.
 	<p></p>
+	<p><b>Input:</b>you can input "msg.payload.value" and it will be used as value</p>
     <p><b>Outputs:</b> a msg object containing remote procedure calls which can be send using the http-request node</p>
 	<p></p>
 	<p>API Documentation: ipofyourcc/api/homematic.cgi</p>
@@ -325,8 +336,13 @@
 
 	},
 	oneditsave : function() {
-	    $("#node-input-_name").val($("#node-input-_method").val() + " " + $("#node-input-_address").val() + " " + $("#node-input-_valueKey").val());
-	    $("#node-input-_topic").val($("#node-input-_method").val() + "_" + $("#node-input-_address").val() + "_" + $("#node-input-_valueKey").val());
+	    if($("#node-input-_name").val() === "") {
+		    $("#node-input-_name").val($("#node-input-_method").val() + " " + $("#node-input-_address").val() + " " + $("#node-input-_valueKey").val());
+		    $("#node-input-_topic").val($("#node-input-_method").val() + "_" + $("#node-input-_address").val() + "_" + $("#node-input-_valueKey").val());
+	    } else {
+			$("#node-input-_topic").val($("#node-input-_name").val());
+	    }
+
 	}
     });
 </script>
