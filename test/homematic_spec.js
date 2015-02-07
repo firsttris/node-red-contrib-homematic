@@ -65,25 +65,32 @@ describe('HomematicNode', function() {
 	});
 
 	it('should create & send Interface.setValue object', function(done) {
-	    var flow = [ {
-		"id" : "homematicNode1",
-		"type" : "homematic",
-		"name" : "homematicNode",
-		"_topic" : "_Interface.setValue",
-		"_method" : "Interface.setValue",
-		"_interface" : "BidCos-RF",
-		"_address" : "customAddress",
-		"_customAddress" : "123456789",
-		"_valueKey" : "ACTUAL_TEMPERATURE",
-		"_type" : "string",
-		"_value" : "22",
-		"wires" : [ [ "helperNode1" ] ]
+
+	    helper.load(homematicNode, [ {
+		id : "HomematicConfigNode1",
+		type : "homematic-config"
+	    }, {
+		id : "homematicNode1",
+		type : "homematic",
+		name : "homematicNode",
+		_topic : "_Interface.setValue",
+		_method : "Interface.setValue",
+		_interface : "BidCos-RF",
+		_device : "HomematicConfigNode1",
+		_valueKey : "ACTUAL_TEMPERATURE",
+		_type : "string",
+		_value : "22",
+		wires : [ [ "helperNode1" ] ]
 	    }, {
 		id : "helperNode1",
 		type : "helper",
 		wires : []
-	    } ];
-	    helper.load(homematicNode, flow, function() {
+	    } ], {
+		"HomematicConfigNode1" : {
+		    device : "mydevice",
+		    serial : "123456789"
+		}
+	    }, function() {
 		var homematicNode1 = helper.getNode("homematicNode1");
 		var helperNode1 = helper.getNode("helperNode1");
 		homematicNode1.should.have.property('name', 'homematicNode');
@@ -92,7 +99,7 @@ describe('HomematicNode', function() {
 			msg.topic.should.equal("_Interface.setValue");
 			msg.payload.method.should.equal("Interface.setValue");
 			msg.payload.params.interface.should.equal("BidCos-RF");
-			msg.payload.params.address.should.equal("123456789");
+			//msg.payload.params.address.should.equal("123456789");
 			msg.payload.params.valueKey.should.equal("ACTUAL_TEMPERATURE");
 			msg.payload.params.type.should.equal("string");
 			msg.payload.params.value.should.equal("22");
@@ -104,7 +111,7 @@ describe('HomematicNode', function() {
 		homematicNode1.receive({});
 	    });
 	});
-	
+
 	it('should receive value to create & send Interface.setValue object', function(done) {
 	    var flow = [ {
 		"id" : "homematicNode1",
@@ -113,8 +120,6 @@ describe('HomematicNode', function() {
 		"_topic" : "_Interface.setValue",
 		"_method" : "Interface.setValue",
 		"_interface" : "BidCos-RF",
-		"_address" : "customAddress",
-		"_customAddress" : "123456789",
 		"_valueKey" : "ACTUAL_TEMPERATURE",
 		"_type" : "string",
 		"wires" : [ [ "helperNode1" ] ]
@@ -132,7 +137,7 @@ describe('HomematicNode', function() {
 			msg.topic.should.equal("_Interface.setValue");
 			msg.payload.method.should.equal("Interface.setValue");
 			msg.payload.params.interface.should.equal("BidCos-RF");
-			msg.payload.params.address.should.equal("123456789");
+			//msg.payload.params.address.should.equal("123456789");
 			msg.payload.params.valueKey.should.equal("ACTUAL_TEMPERATURE");
 			msg.payload.params.type.should.equal("string");
 			msg.payload.params.value.should.equal("13");
@@ -141,7 +146,11 @@ describe('HomematicNode', function() {
 			done(err);
 		    }
 		});
-		homematicNode1.receive({payload: {value: "13"}});
+		homematicNode1.receive({
+		    payload : {
+			value : "13"
+		    }
+		});
 	    });
 	});
 

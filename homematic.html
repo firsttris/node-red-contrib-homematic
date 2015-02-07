@@ -15,27 +15,15 @@
         </select>
     </div>
 	<div class="form-row hidden" id="node-form-_interface">
-        <label for="node-input-_interface"><i class="fa fa-list"></i> Interface</label>
+        <label for="node-input-_interface"><i class="fa fa-globe"></i> Interface</label>
 		<select id="node-input-_interface">
 			<option value=""></option>
             <option value="BidCos-RF">BidCos-RF</option>
         </select>
     </div>
-	<div class="form-row" id="node-form-_address">
-        <label for="node-input-_address"><i class="fa fa-list"></i> Address</label>
-		<select id="node-input-_address">
-			<option value=""></option>
-            <option value="LEQ0996940:2">LEQ0996940:2 WandThermostat</option>
-			<option value="LEQ0990753:1">LEQ0990753:1 DimmerOben</option>
-			<option value="LEQ0850231:4">LEQ0850231:4 BadThermostat</option>
-			<option value="LEQ0884092:1">LEQ0884092:1</option>
-			<option value="LEQ0884092:2">LEQ0884092:2</option>
-			<option value="customAddress">Custom Adress</option>
-        </select>
-    </div>
-	<div class="form-row" id="node-form-_customAddress">
-        <label for="node-input-_customAddress"><i class="fa fa-tag"></i> Adress</label>
-        <input type="text" id="node-input-_customAddress" placeholder="Adress">
+	<div class="form-row" id="node-form-_device">
+        <label for="node-input-_device"><i class="fa fa-dot-circle-o"></i> Device</label>
+        <input type="text" id="node-input-_device">
     </div>
 	<div class="form-row" id="node-form-_valueKey">
         <label for="node-input-_valueKey"><i class="fa fa-list"></i> ValueKey</label>
@@ -56,7 +44,7 @@
         </select>
     </div>
 	<div class="form-row" id="node-form-_type">
-        <label for="node-input-_type"><i class="fa fa-list"></i> Type</label>
+        <label for="node-input-_type"><i class="fa fa-bookmark"></i> Type</label>
 		<select id="node-input-_type">
 			<option value=""></option>
             <option value="boolean">boolean</option>
@@ -80,16 +68,16 @@
         <input type="text" id="node-input-_interfaceId" placeholder="InterfaceId">
     </div>
 	<div class="form-row" id="node-form-_value">
-        <label for="node-input-_value"><i class="fa fa-tag"></i> Value</label>
+        <label for="node-input-_value"><i class="fa fa-sign-out"></i> Value</label>
         <input type="text" id="node-input-_value" placeholder="Value">
     </div>
 	<div class="form-row" id="node-form-_topic">
-        <label for="node-input-_topic"><i class="fa fa-tag"></i> Topic</label>
-        <input type="text" id="node-input-_topic" placeholder="Topic">
+        <label for="node-input-_topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-_topic" placeholder="Leave blank for auto generated">
     </div>
 <div class="form-row" id="node-form-_name">
 <label for="node-input-_name"><i class="fa fa-tag"></i> Name</label>
-<input type="text" id="node-input-_name" placeholder="Name">
+<input type="text" id="node-input-_name" placeholder="Leave blank for auto generated">
 </div>
 </script>
 
@@ -100,17 +88,13 @@
 	<p></p>
 	<p>To use JSON-RPC with your ccu your need to optain a SessionId using
 	the "Session.Login" method. You can save the SessionId to "context.global.currentSessionid"
-	and each msg you create using this node will use this SessionId automatically. 
-	After some time your SessionId will expire so you need to create some logic to optian a new one.
-	</p>
+	and each msg you create using this node will use this SessionId automatically.</p>
+    <p>Add currentSessionid: "" to functionGlobalContext in settings.js</p>
+	<p>After some time your SessionId will expire so you need to create some logic to optian a new one.</p>
 	<p>In order to communicate with your homematic device you need to find out the serialnumber.
-	An easy way to find out the serialnumber of your device is using the XML-API addonn provided by
-	<a href="http://www.homematic-inside.de/software/addons/item/xmlapi" target="_blank">homematic inside</a>
-	in the statelist.cgi your will find all devices with all serialnumbers.
-	In the Homematic WebUI you will also find the main part of the serialnumber, so you can easily identify
-	your device.</p>
-	<p>The Adress Field (Custom Adress) represents the serialnumber.
-	<p></p>
+	An easy way to find out the serialnumber of your device is using the homematic ccu webui.</p>
+	<p>XML-API addon provided by <a href="http://www.homematic-inside.de/software/addons/item/xmlapi" target="_blank">homematic inside</a>
+	gives you additional information about which values you can set. (You can for example use statelist.cgi and search for your serialnumber)</p>
 	<p><b>Input:</b>you can input "msg.payload.value" and it will be used as value</p>
     <p><b>Outputs:</b> a msg object containing remote procedure calls which can be send using the http-request node</p>
 	<p></p>
@@ -135,8 +119,8 @@
 	    _interface : {
 		value : ""
 	    },
-	    _address : {
-		value : ""
+	    _device : {
+		type:"homematic-config"
 	    },
 	    _valueKey : {
 		value : ""
@@ -154,9 +138,6 @@
 		value : ""
 	    },
 	    _topic : {
-		value : ""
-	    },
-	    _customAddress : {
 		value : ""
 	    },
 	    _username : {
@@ -180,37 +161,12 @@
 	},
 	oneditprepare : function() {
 
-	    $("#node-input-_address").change(function() {
-		var selectedAdress = $("#node-input-_address").val();
-		hideAndShowOnAdressChange(selectedAdress);
-		clearValuesOnAdressChange(selectedAdress);
-	    });
-	    $("#node-input-_address").change();
-
 	    $("#node-input-_method").change(function() {
 		var selectedMethod = $("#node-input-_method").val();
 		clearValuesOnMethodChange(selectedMethod);
 		hideAndShowOnMethodChange(selectedMethod);
 	    });
 	    $("#node-input-method").change();
-
-	    function hideAndShowOnAdressChange(selectedAdress) {
-
-		if (selectedAdress === "customAddress") {
-		    $("#node-form-_customAddress").show();
-		} else {
-		    $("#node-form-_customAddress").hide();
-		}
-
-	    }
-
-	    function clearValuesOnAdressChange(selectedAdress) {
-
-		if (selectedAdress !== "customAddress") {
-		    $("#node-input-_customAddress").val("");
-		}
-
-	    }
 
 	    function hideAndShowOnMethodChange(selectedMethod) {
 
@@ -231,17 +187,17 @@
 		}
 	    }
 
-	    function hideFields(_interface, _address, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
+	    function hideFields(_interface, _device, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
 		if (_interface) {
 		    $("#node-form-_interface").hide();
 		} else {
 		    $("#node-form-_interface").show();
 		}
 
-		if (_address) {
-		    $("#node-form-_address").hide();
+		if (_device) {
+		    $("#node-form-_device").hide();
 		} else {
-		    $("#node-form-_address").show();
+		    $("#node-form-_device").show();
 		}
 
 		if (_valueKey) {
@@ -313,11 +269,11 @@
 
 	    }
 
-	    function clearValueOnField(_interface, _address, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
+	    function clearValueOnField(_interface, _device, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
 		if (_interface)
 		    $("#node-input-_interface").prop("selectedIndex", 0);
-		if (_address)
-		    $("#node-input-_address").prop("selectedIndex", 0);
+		if (_device)
+		    $("#node-input-_device").prop("selectedIndex", 0);
 		if (_valueKey)
 		    $("#node-input-_valueKey").prop("selectedIndex", 0);
 		if (_type)
@@ -337,12 +293,45 @@
 	},
 	oneditsave : function() {
 	    if($("#node-input-_name").val() === "") {
-		    $("#node-input-_name").val($("#node-input-_method").val() + " " + $("#node-input-_address").val() + " " + $("#node-input-_valueKey").val());
-		    $("#node-input-_topic").val($("#node-input-_method").val() + "_" + $("#node-input-_address").val() + "_" + $("#node-input-_valueKey").val());
+			var nameAndTopic = $("#node-input-_method").val().replace("Interface.","").replace("Session.","");
+			if($("#node-input-_valueKey").val() != "") {
+			    nameAndTopic = nameAndTopic + " " + $("#node-input-_valueKey").val();
+			}
+			if($("#node-input-_device option:selected").text() != "") {
+			    nameAndTopic = nameAndTopic + " " + $("#node-input-_device option:selected").text();
+			}
+			
+		    $("#node-input-_name").val(nameAndTopic);
+		    $("#node-input-_topic").val(nameAndTopic);
 	    } else {
 			$("#node-input-_topic").val($("#node-input-_name").val());
 	    }
 
 	}
+    });
+</script>
+
+<script type="text/x-red" data-template-name="homematic-config">
+    <div class="form-row">
+        <label for="node-config-input-device"><i class="fa fa-tag"></i> Device</label>
+        <input type="text" id="node-config-input-device" placeholder="Device Name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-serial"><i class="fa fa-globe"></i> Serial#</label>
+        <input type="text" id="node-config-input-serial" placeholder="Serial#">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('homematic-config',{
+        category: 'config',
+        defaults: {
+            device: {value:""},
+            serial: {value:""},
+
+        },
+        label: function() {
+            return this.device;
+        }
     });
 </script>
