@@ -4,6 +4,9 @@ integrate your homematic device with <b>Node-RED</b>
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-homematic.svg)](http://badge.fury.io/js/node-red-contrib-homematic) [![Build Status](https://travis-ci.org/firsttris/node-red-contrib-homematic.svg?branch=master)](https://travis-ci.org/firsttris/node-red-contrib-homematic) [![Coverage Status](https://coveralls.io/repos/firsttris/node-red-contrib-homematic/badge.svg?branch=master)](https://coveralls.io/r/firsttris/node-red-contrib-homematic?branch=master) [![Dependency Status](https://david-dm.org/firsttris/node-red-contrib-homematic.svg)](https://david-dm.org/firsttris/node-red-contrib-homematic) [![devDependency Status](https://david-dm.org/firsttris/node-red-contrib-homematic/dev-status.svg)](https://david-dm.org/firsttris/node-red-contrib-homematic#info=devDependencies)
 
+## This Project uses the JSON-API of Homematic. (This API will no longer be maintained)
+## I will rebuild the Project to use XML-RPC.
+
 ### Overview
 node-red-contrib-homematic provides predefined commands to control homematic devices connected to the CCU using the JSON-RPC API in <b>Node-RED</b>.<br>
 <b>Node-RED</b> - is a visual tool for wiring the Internet of Things - read more @http://nodered.org<br>
