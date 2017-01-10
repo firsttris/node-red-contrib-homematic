@@ -9,7 +9,7 @@
 node-red-contrib-homematic provides functions to control Homematic devices in <b>Node-RED</b>.<br>
 
 <b>Node-RED</b> - is a visual tool for wiring the Internet of Things (IoT) - read more @http://nodered.org<br>
-This node outputs a msg object containing "remote script calls" which can be send to the CCU using the http-request node.
+This node outputs a msg object containing "remote script calls" which can be send to the CCU using the HttpRequest node.
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic2.PNG)
 
@@ -23,11 +23,11 @@ This node provides "remote script calls" which can be send using the HttpRequest
 
 Example shows how to change the level of a dimmer
 
-Inject node ---- Homematic node ---- HttpReques node ---- Debug node
+Inject node ---- Homematic node ---- HttpRequest node ---- Debug node
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-contrib-homematic.PNG)
 
-Homematic node config
+### Homematic node config
 
 #### Configure your CCU
 
@@ -51,11 +51,11 @@ your config ccu/devices will be saved..
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
 
+#
 
+### The Vanilla Way
 
-### Implementation
-
-#### Talk to Homematic only with vanilla nodes:
+#### Talk to Homematic only with core nodes
 
 Example shows how to change the level of a dimmer
 
