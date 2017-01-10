@@ -40,6 +40,8 @@ HttpRequest-Node config
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
 
+Find the exported flow in examples/node-red-contrib-homematic-example-flow.json
+
 ### Implementation
 
 #### Talk to Homematic only with node-red vanilla nodes:
@@ -65,6 +67,8 @@ return msg;
 HttpRequest-Node config
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
+
+Find the exported flow in examples/node-red-vanilla-example-flow.json
 
 ### Install
 ```
