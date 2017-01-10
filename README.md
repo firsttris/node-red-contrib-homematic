@@ -1,14 +1,14 @@
 node-red-contrib-homematic
 ===
-:house: Integrate your homematic device with <b>Node-RED</b>
+:house: Integrate your Homematic devices with <b>Node-RED</b>
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-homematic.svg)](http://badge.fury.io/js/node-red-contrib-homematic) 
 
 ### Features
-node-red-contrib-homematic provides functions to control homematic devices in <b>Node-RED</b>.<br>
+node-red-contrib-homematic provides functions to control Homematic devices in <b>Node-RED</b>.<br>
 
-<b>Node-RED</b> - is a visual tool for wiring the Internet of Things - read more @http://nodered.org<br>
-This node outputs a msg object containing Remote Script Calls which can be send to the CCU using the http-request node.
+<b>Node-RED</b> - is a visual tool for wiring the Internet of Things (IoT) - read more @http://nodered.org<br>
+This node outputs a msg object containing "remote script calls" which can be send to the CCU using the http-request node.
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic2.PNG)
 
