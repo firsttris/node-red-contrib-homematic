@@ -20,23 +20,23 @@ This node uses Homematic Remote Script API (Rega) to talk to Homematic
 
 #### Talk to Homematic with node-red-contrib-homematic:
 
-Example how to change level of a Homematic dimmer
+Example how to change level of a Homematic-dimmer
 
 Inject-Node ---- Homematic-Node ---- HttpRequest-Node ---- Debug-Node
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-contrib-homematic.PNG)
 
-Homematic-Node Config
+Homematic-Node config
 
 Choose function, channel, attribute and value you want to set
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic-node.PNG)
 
-Config your CCU
+Configure your CCU
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic-node-credentials.PNG)
 
-HttpRequest-Node is configured like this:
+HttpRequest-Node config
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
 
@@ -62,7 +62,7 @@ msg.url = "http://20.1.0.50/tclrega.exe";
 msg.payload = script;
 return msg;
 ```
-HttpRequest-Node configuration
+HttpRequest-Node config
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
 
