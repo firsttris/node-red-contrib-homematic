@@ -1,6 +1,6 @@
 node-red-contrib-homematic
 ===
-Integrate your homematic device with <b>Node-RED</b>
+:house: Integrate your homematic device with <b>Node-RED</b>
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-homematic.svg)](http://badge.fury.io/js/node-red-contrib-homematic) 
 
