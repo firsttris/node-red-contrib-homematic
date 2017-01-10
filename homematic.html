@@ -101,11 +101,9 @@
             $("#node-input-function").change(function() {
                 var selectedMethod = $("#node-input-function").val();
                 if (selectedMethod === "setValue") {
-                    $("#node-form-dataType").show();
                     $("#node-form-value").show();
                 }
                 if (selectedMethod === "getValue") {
-                    $("#node-form-dataType").hide();
                     $("#node-form-value").hide();
                 }
             });
