@@ -1,33 +1,23 @@
 <script type="text/x-red" data-template-name="homematic">
-	<div class="form-row" id="node-form-_method">
-        <label for="node-input-_method"><i class="fa fa-list"></i> Method</label>
-		<select id="node-input-_method">
-			<option value="Session.login">Session.login</option>
-			<option value="Session.logout">Session.logout</option>
-            <option value="Interface.setValue">Interface.setValue</option>
-			<option value="Interface.getValue">Interface.getValue</option>
-			<option value="Interface.init">Interface.init</option>
-			<option value="Device.listAllDetail">Device.listAllDetail</option>
-			<option value="Device.listAll">Device.listAll</option>
-			<option value="Event.poll">Event.poll</option>
-			<option value="Event.subscribe">Event.subscribe</option>
-			<option value="Event.unsubscribe">Event.unsubscribe</option>
+	<div class="form-row" id="node-form-ccu">
+        <label for="node-input-ccu"><i class="fa fa-dot-circle-o"></i> CCU</label>
+        <input type="text" id="node-input-ccu">
+    </div>
+	<div class="form-row" id="node-form-function">
+        <label for="node-input-function"><i class="fa fa-list"></i> Function</label>
+		<select id="node-input-function">
+		    <option value=""></option>
+            <option value="setValue">setValue</option>
+			<option value="getValue">getValue</option>
         </select>
     </div>
-	<div class="form-row hidden" id="node-form-_interface">
-        <label for="node-input-_interface"><i class="fa fa-globe"></i> Interface</label>
-		<select id="node-input-_interface">
-			<option value=""></option>
-            <option value="BidCos-RF">BidCos-RF</option>
-        </select>
+	<div class="form-row" id="node-form-channel">
+        <label for="node-input-channel"><i class="fa fa-dot-circle-o"></i> Channel</label>
+        <input type="text" id="node-input-channel">
     </div>
-	<div class="form-row" id="node-form-_device">
-        <label for="node-input-_device"><i class="fa fa-dot-circle-o"></i> Device</label>
-        <input type="text" id="node-input-_device">
-    </div>
-	<div class="form-row" id="node-form-_valueKey">
-        <label for="node-input-_valueKey"><i class="fa fa-list"></i> ValueKey</label>
-		<select id="node-input-_valueKey">
+	<div class="form-row" id="node-form-attribute">
+        <label for="node-input-attribute"><i class="fa fa-list"></i> Attribute</label>
+		<select id="node-input-attribute">
 			<option value=""></option>
             <option value="ACTUAL_TEMPERATURE">ACTUAL_TEMPERATURE</option>
 			<option value="ACTUAL_HUMIDITY">ACTUAL_HUMIDITY</option>
@@ -41,297 +31,118 @@
 			<option value="PARTY_TEMPERATURE">PARTY_TEMPERATURE</option>			
 			<option value="LEVEL">LEVEL</option>
 			<option value="STATE">STATE</option>
+			<option value="OPEN">OPEN</option>
         </select>
     </div>
-	<div class="form-row" id="node-form-_type">
-        <label for="node-input-_type"><i class="fa fa-bookmark"></i> Type</label>
-		<select id="node-input-_type">
-			<option value=""></option>
-            <option value="boolean">boolean</option>
-			<option value="string">string</option>
-        </select>
+	<div class="form-row hidden" id="node-form-value">
+        <label for="node-input-value"><i class="fa fa-sign-out"></i> Value</label>
+        <input type="text" id="node-input-value" placeholder="Value">
     </div>
-	<div class="form-row" id="node-form-_username">
-        <label for="node-input-_username"><i class="fa fa-tag"></i> Username</label>
-        <input type="text" id="node-input-_username" placeholder="Username">
+    <div class="form-row" id="node-form-nodeName">
+        <label for="node-input-nodeName"><i class="fa fa-tag"></i> Node Name</label>
+        <input type="text" id="node-input-nodeName" placeholder="Homematic">
     </div>
-		<div class="form-row" id="node-form-_password">
-        <label for="node-input-_password"><i class="fa fa-tag"></i> Password</label>
-        <input type="password" id="node-input-_password" placeholder="Password">
-    </div>
-	<div class="form-row" id="node-form-_url">
-        <label for="node-input-_url"><i class="fa fa-tag"></i> URL</label>
-        <input type="text" id="node-input-_url" placeholder="URL">
-    </div>
-	<div class="form-row" id="node-form-_interfaceId">
-        <label for="node-input-_interfaceId"><i class="fa fa-tag"></i> InterfaceId</label>
-        <input type="text" id="node-input-_interfaceId" placeholder="InterfaceId">
-    </div>
-	<div class="form-row" id="node-form-_value">
-        <label for="node-input-_value"><i class="fa fa-sign-out"></i> Value</label>
-        <input type="text" id="node-input-_value" placeholder="Value">
-    </div>
-	<div class="form-row" id="node-form-_topic">
-        <label for="node-input-_topic"><i class="fa fa-tasks"></i> Topic</label>
-        <input type="text" id="node-input-_topic" placeholder="Leave blank for auto generated">
-    </div>
-<div class="form-row" id="node-form-_name">
-<label for="node-input-_name"><i class="fa fa-tag"></i> Name</label>
-<input type="text" id="node-input-_name" placeholder="Leave blank for auto generated">
-</div>
 </script>
 
 <script type="text/x-red" data-help-name="homematic">
-    <p>This Node provides predefined commands to control homematic devices 
-       using the JSON-RPC API.</p>
-    <p>Select a method and fill in the required fields.</p>
+    <p>This Node provides predefined commands to control homematic devices.</p>
+    <p>Choose function, channel, attribute and value you want to set</p>
 	<p></p>
-	<p>To use JSON-RPC with your ccu your need to optain a SessionId using
-	the "Session.Login" method. You can save the SessionId to "context.global.currentSessionid"
-	and each msg you create using this node will use this SessionId automatically.</p>
-    <p>Add currentSessionid: "" to functionGlobalContext in settings.js</p>
-	<p>After some time your SessionId will expire so you need to create some logic to optian a new one.</p>
-	<p>In order to communicate with your homematic device you need to find out the serialnumber.
-	An easy way to find out the serialnumber of your device is using the homematic ccu webui.</p>
-	<p>XML-API addon provided by <a href="http://www.homematic-inside.de/software/addons/item/xmlapi" target="_blank">homematic inside</a>
-	gives you additional information about which values you can set. (You can for example use statelist.cgi and search for your serialnumber)</p>
-	<p><b>Input:</b>you can input "msg.payload.value" and it will be used as value</p>
     <p><b>Outputs:</b> a msg object containing remote procedure calls which can be send using the http-request node</p>
-	<p></p>
-	<p>API Documentation: ipofyourcc/api/homematic.cgi</p>
-	<p></p>
-	<p>You can easily extend this module to fit your needs
-	by editing the html file.</p> 
-	<p>Pull requests are welcome
-	<a href="https://github.com/firsttris/node-red-contrib-homematic" target="_blank">Github</a>
+	<p><b>Find more infos on:</b></p>
+	<p>
+	<a href="https://github.com/firsttris/node-red-contrib-homematic" target="_blank">node-red-contrib-homematic Github page</a>
 	</p>
 </script>
 
 <script type="text/javascript">
     RED.nodes.registerType('homematic', {
-	category : 'function',
-	color : "#ecf0f1",
-	defaults : {
-	    _method : {
-		value : "",
-		required : true
-	    },
-	    _interface : {
-		value : ""
-	    },
-	    _device : {
-		type:"homematic-config"
-	    },
-	    _valueKey : {
-		value : ""
-	    },
-	    _type : {
-		value : ""
-	    },
-	    _url : {
-		value : ""
-	    },
-	    _interfaceId : {
-		value : ""
-	    },
-	    _value : {
-		value : ""
-	    },
-	    _topic : {
-		value : ""
-	    },
-	    _username : {
-		value : ""
-	    },
-	    _password : {
-		value : ""
-	    },
-	    _name : {
-		value : ""
-	    },
-	},
-	inputs : 1,
-	outputs : 1,
-	icon : "envelope.png",
-	label : function() {
-	    return this._name || "homematic";
-	},
-	labelStyle : function() {
-	    return (this._name) ? "node_label_italic" : "";
-	},
-	oneditprepare : function() {
-
-	    $("#node-input-_method").change(function() {
-		var selectedMethod = $("#node-input-_method").val();
-		clearValuesOnMethodChange(selectedMethod);
-		hideAndShowOnMethodChange(selectedMethod);
-	    });
-	    $("#node-input-method").change();
-
-	    function hideAndShowOnMethodChange(selectedMethod) {
-
-		if (selectedMethod === "Session.login") {
-		    hideFields(true, true, true, true, false, false, true, true, true);
-		} else if (selectedMethod === "Session.logout") {
-		    hideFields(true, true, true, true, true, true, true, true, true);
-		} else if (selectedMethod === "Interface.setValue") {
-		    hideFields(false, false, false, false, true, true, false, true, true);
-		} else if (selectedMethod === "Interface.getValue") {
-		    hideFields(false, false, false, true, true, true, true, true, true);
-		} else if (selectedMethod === "Interface.init") {
-		    hideFields(false, true, true, true, true, true, true, false, false);
-		} else if (selectedMethod === "Device.listAllDetail") {
-		    hideFields(true, true, true, true, true, true, true, true, true);
-		} else if (selectedMethod === "Device.listAll") {
-		    hideFields(true, true, true, true, true, true, true, true, true);
-		}
-	    }
-
-	    function hideFields(_interface, _device, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
-		if (_interface) {
-		    $("#node-form-_interface").hide();
-		} else {
-		    $("#node-form-_interface").show();
-		}
-
-		if (_device) {
-		    $("#node-form-_device").hide();
-		} else {
-		    $("#node-form-_device").show();
-		}
-
-		if (_valueKey) {
-		    $("#node-form-_valueKey").hide();
-		} else {
-		    $("#node-form-_valueKey").show();
-		}
-
-		if (_type) {
-		    $("#node-form-_type").hide();
-		} else {
-		    $("#node-form-_type").show();
-		}
-
-		if (_username) {
-		    $("#node-form-_username").hide();
-		} else {
-		    $("#node-form-_username").show();
-		}
-
-		if (_password) {
-		    $("#node-form-_password").hide();
-		} else {
-		    $("#node-form-_password").show();
-		}
-
-		if (_value) {
-		    $("#node-form-_value").hide();
-		} else {
-		    $("#node-form-_value").show();
-		}
-
-		if (_url) {
-		    $("#node-form-_url").hide();
-		} else {
-		    $("#node-form-_url").show();
-		}
-
-		if (_interfaceId) {
-		    $("#node-form-_interfaceId").hide();
-		} else {
-		    $("#node-form-_interfaceId").show();
-		}
-	    }
-
-	    function clearValuesOnMethodChange(selectedMethod) {
-
-		if (selectedMethod === "Session.login") {
-		    clearValueOnField(true, true, true, true, false, false, true, true, true);
-		} else if (selectedMethod === "Session.logout") {
-		    clearValueOnField(true, true, true, true, true, true, true, true, true);
-		} else if (selectedMethod === "Interface.setValue") {
-		    clearValueOnField(false, false, false, false, true, true, false, false, false);
-		} else if (selectedMethod === "Interface.getValue") {
-		    clearValueOnField(false, false, false, true, true, true, true, true, true);
-		} else if (selectedMethod === "Interface.init") {
-		    clearValueOnField(false, true, true, true, true, true, true, false, false);
-		} else if (selectedMethod === "Device.listAllDetail") {
-		    clearValueOnField(true, true, true, true, true, true, true, true, true);
-		} else if (selectedMethod === "Device.listAll") {
-		    clearValueOnField(true, true, true, true, true, true, true, true, true);
-		} else if (selectedMethod === "Event.poll") {
-		    clearValueOnField(true, true, true, true, true, true, true, true, true);
-		} else if (selectedMethod === "Event.subscribe") {
-		    clearValueOnField(true, true, true, true, true, true, true, true, true);
-		} else if (selectedMethod === "Event.unsubscribe") {
-		    clearValueOnField(true, true, true, true, true, true, true, true, true);
-		}
-
-	    }
-
-	    function clearValueOnField(_interface, _device, _valueKey, _type, _username, _password, _value, _url, _interfaceId) {
-		if (_interface)
-		    $("#node-input-_interface").prop("selectedIndex", 0);
-		if (_device)
-		    $("#node-input-_device").prop("selectedIndex", 0);
-		if (_valueKey)
-		    $("#node-input-_valueKey").prop("selectedIndex", 0);
-		if (_type)
-		    $("#node-input-_type").prop("selectedIndex", 0);
-		if (_username)
-		    $("#node-input-_username").val("");
-		if (_password)
-		    $("#node-input-_password").val("");
-		if (_value)
-		    $("#node-input-_value").val("");
-		if (_url)
-		    $("#node-input-_url").val("");
-		if (_interfaceId)
-		    $("#node-input-_interfaceId").val("");
-	    }
-
-	},
-	oneditsave : function() {
-	    if($("#node-input-_name").val() === "") {
-			var nameAndTopic = $("#node-input-_method").val().replace("Interface.","").replace("Session.","");
-			if($("#node-input-_valueKey").val() != "") {
-			    nameAndTopic = nameAndTopic + " " + $("#node-input-_valueKey").val();
-			}
-			if($("#node-input-_device option:selected").text() != "") {
-			    nameAndTopic = nameAndTopic + " " + $("#node-input-_device option:selected").text();
-			}
-			
-		    $("#node-input-_name").val(nameAndTopic);
-		    $("#node-input-_topic").val(nameAndTopic);
-	    } else {
-			$("#node-input-_topic").val($("#node-input-_name").val());
-	    }
-
-	}
+        category: 'function',
+        color: "#ecf0f1",
+        defaults: {
+            ccu: {
+                type: "homematic-config"
+            },
+            function: {
+                value: "",
+                required: true
+            },
+            channel: {
+                value: "",
+                required: true
+            },
+            attribute: {
+                value: "",
+                required: true
+            },
+            value: {
+                value: ""
+            },
+            nodeName: {
+                value: ""
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "envelope.png",
+        label: function () {
+            if(this.nodeName) {
+                return this.nodeName
+            } else if (this.function) {
+                return this.function + " " +this.value;
+            } else {
+                return "homematic"
+            }
+        },
+        labelStyle: function () {
+            return (this.nodeName) ? "node_label_italic" : "";
+        },
+        oneditprepare : function() {
+            $("#node-input-function").change(function() {
+                var selectedMethod = $("#node-input-function").val();
+                if (selectedMethod === "setValue") {
+                    $("#node-form-dataType").show();
+                    $("#node-form-value").show();
+                }
+                if (selectedMethod === "getValue") {
+                    $("#node-form-dataType").hide();
+                    $("#node-form-value").hide();
+                }
+            });
+            $("#node-input-function").change();
+        }
     });
 </script>
 
 <script type="text/x-red" data-template-name="homematic-config">
     <div class="form-row">
-        <label for="node-config-input-device"><i class="fa fa-tag"></i> Device</label>
-        <input type="text" id="node-config-input-device" placeholder="Device Name">
+        <label for="node-config-input-host"><i class="fa fa-tag"></i> Host</label>
+        <input type="text" id="node-config-input-host" placeholder="Host">
     </div>
     <div class="form-row">
-        <label for="node-config-input-serial"><i class="fa fa-globe"></i> Serial#</label>
-        <input type="text" id="node-config-input-serial" placeholder="Serial#">
+        <label for="node-config-input-interfaceName"><i class="fa fa-globe"></i> Interface</label>
+		<select id="node-config-input-interfaceName">
+		    <option value="HmIP-RF.">HmIP-RF</option>
+			<option value="BidCos-Wired.">BidCos-Wired</option>
+            <option value="BidCos-RF.">BidCos-RF</option>
+        </select>
     </div>
 </script>
 
+<script type="text/x-red" data-help-name="homematic-config">
+    <p>Configure IP and Interface of your CCU</p>
+    <p><i>CCU2 uses BidCos-RF</i></p>
+</script>
+
 <script type="text/javascript">
-    RED.nodes.registerType('homematic-config',{
+    RED.nodes.registerType('homematic-config', {
         category: 'config',
         defaults: {
-            device: {value:""},
-            serial: {value:""},
-
+            host: {value: ""},
+            interfaceName: {value: ""}
         },
-        label: function() {
-            return this.device;
+        label: function () {
+            return this.host;
         }
     });
 </script>

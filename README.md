@@ -2,33 +2,89 @@ node-red-contrib-homematic
 ===
 integrate your homematic device with <b>Node-RED</b>
 
-[![npm version](https://badge.fury.io/js/node-red-contrib-homematic.svg)](http://badge.fury.io/js/node-red-contrib-homematic) [![Build Status](https://travis-ci.org/firsttris/node-red-contrib-homematic.svg?branch=master)](https://travis-ci.org/firsttris/node-red-contrib-homematic) [![Coverage Status](https://coveralls.io/repos/firsttris/node-red-contrib-homematic/badge.svg?branch=master)](https://coveralls.io/r/firsttris/node-red-contrib-homematic?branch=master) [![Dependency Status](https://david-dm.org/firsttris/node-red-contrib-homematic.svg)](https://david-dm.org/firsttris/node-red-contrib-homematic) [![devDependency Status](https://david-dm.org/firsttris/node-red-contrib-homematic/dev-status.svg)](https://david-dm.org/firsttris/node-red-contrib-homematic#info=devDependencies)
+[![npm version](https://badge.fury.io/js/node-red-contrib-homematic.svg)](http://badge.fury.io/js/node-red-contrib-homematic) 
 
-## This Project uses the JSON-API of Homematic. (This API will no longer be maintained)
-## I will rebuild the Project to use XML-RPC.
+### Features
+node-red-contrib-homematic provides commands to control homematic devices using the in <b>Node-RED</b>.<br>
 
-### Overview
-node-red-contrib-homematic provides predefined commands to control homematic devices connected to the CCU using the JSON-RPC API in <b>Node-RED</b>.<br>
 <b>Node-RED</b> - is a visual tool for wiring the Internet of Things - read more @http://nodered.org<br>
-This node outputs a msg object containing remote procedure calls which can be send to the CCU using the http-request node.
+This node outputs a msg object containing Remote Script calls(Rega) which can be send to the CCU using the http-request node.
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic2.PNG)
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic1.PNG)
+### Communication
 
+This node uses Homematic Remote Script API (Rega) to talk to Homematic
 
+### How to use this Node?
+
+#### Talk to Homematic with node-red-contrib-homematic:
+
+Example how to change level of a Homematic dimmer
+
+Inject-Node ---- Homematic-Node ---- HttpRequest-Node ---- Debug-Node
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-contrib-homematic.PNG)
+
+Homematic-Node Config
+
+Choose function, channel, attribute and value you want to set
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic-node.PNG)
+
+Config your CCU
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic-node-credentials.PNG)
+
+HttpRequest-Node is configured like this:
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
+
+### Implementation
+
+#### Talk to Homematic only with node-red vanilla nodes:
+
+Example how to change level of a Homematic dimmer
+
+Inject-Node ---- Function-Node ---- HttpRequest-Node ---- Debug-Node
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-homematic-rega.PNG)
+
+Function-Node Contains:
+```
+var script = "var d = dom.GetObject(\"BidCos-RF.LEQ0990753:1.LEVEL\");if (d){d.State(\"100\");}";
+var headers = {};
+headers["Content-Length"] = script.length;
+headers["Content-Type"] = "application/x-www-form-urlencoded";
+msg.headers = headers;
+msg.method = "POST";
+msg.url = "http://20.1.0.50/tclrega.exe";
+msg.payload = script;
+return msg;
+```
+HttpRequest-Node is configured like this:
+
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
 
 ### Install
-```chef
+```
 cd node-red/
 npm install node-red-contrib-homematic
 ```
 
-### Something missing?
-feel free to create a pull request!
-but first run some tests...
-```chef
-npm install -g mocha
-cd node-red/node_modules/node-red-contrib-homematic/
-mocha test/homematic_spec.js
+### Docker Install
+On the host machine:
+```
+docker run \
+--name nodered \
+--restart=always \
+-v /home/docker/node-red:/data \
+-p 1880:1880 \
+-d nodered/node-red-docker
+```
+
+Also on the host machine:
+```
+cd /home/docker/node-red
+npm install node-red-contrib-homematic
 ```
