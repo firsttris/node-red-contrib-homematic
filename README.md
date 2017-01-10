@@ -1,14 +1,14 @@
 node-red-contrib-homematic
 ===
-integrate your homematic device with <b>Node-RED</b>
+Integrate your homematic device with <b>Node-RED</b>
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-homematic.svg)](http://badge.fury.io/js/node-red-contrib-homematic) 
 
 ### Features
-node-red-contrib-homematic provides commands to control homematic devices using the in <b>Node-RED</b>.<br>
+node-red-contrib-homematic provides functions to control homematic devices in <b>Node-RED</b>.<br>
 
 <b>Node-RED</b> - is a visual tool for wiring the Internet of Things - read more @http://nodered.org<br>
-This node outputs a msg object containing Remote Script calls(Rega) which can be send to the CCU using the http-request node.
+This node outputs a msg object containing Remote Script Calls which can be send to the CCU using the http-request node.
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic2.PNG)
 
@@ -50,7 +50,7 @@ Inject-Node ---- Function-Node ---- HttpRequest-Node ---- Debug-Node
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-homematic-rega.PNG)
 
-Function-Node Contains:
+Function-Node Contains
 ```
 var script = "var d = dom.GetObject(\"BidCos-RF.LEQ0990753:1.LEVEL\");if (d){d.State(\"100\");}";
 var headers = {};
@@ -62,7 +62,7 @@ msg.url = "http://20.1.0.50/tclrega.exe";
 msg.payload = script;
 return msg;
 ```
-HttpRequest-Node is configured like this:
+HttpRequest-Node configuration
 
 ![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
 
@@ -73,7 +73,7 @@ npm install node-red-contrib-homematic
 ```
 
 ### Docker Install
-On the host machine:
+On the host machine
 ```
 docker run \
 --name nodered \
@@ -83,7 +83,7 @@ docker run \
 -d nodered/node-red-docker
 ```
 
-Also on the host machine:
+Also on the host machine
 ```
 cd /home/docker/node-red
 npm install node-red-contrib-homematic
