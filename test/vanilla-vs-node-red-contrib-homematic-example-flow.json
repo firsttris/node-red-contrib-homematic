@@ -1,0 +1,123 @@
+[
+  {
+    "id": "36d190f2.41f9b",
+    "type": "tab",
+    "label": "Homematic"
+  },
+  {
+    "id": "1d176b0e.f8d5c5",
+    "type": "function",
+    "z": "36d190f2.41f9b",
+    "name": "setValue 0",
+    "func": "var script = \"var d = dom.GetObject(\\\"BidCos-RF.LEQ0990753:1.LEVEL\\\");if (d){d.State(\\\"0\\\");}\";\nvar headers = {};\nheaders[\"Content-Length\"] = script.length;\nheaders[\"Content-Type\"] = \"application/x-www-form-urlencoded\";\nmsg.headers = headers;\nmsg.method = \"POST\";\nmsg.url = \"http://20.1.0.50/tclrega.exe\";\nmsg.payload = script;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 578,
+    "y": 269,
+    "wires": [
+      [
+        "a2381a26.466768"
+      ]
+    ]
+  },
+  {
+    "id": "70fe5b0e.5891a4",
+    "type": "inject",
+    "z": "36d190f2.41f9b",
+    "name": "node-red-contrib-homematic",
+    "topic": "",
+    "payload": "",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 252,
+    "y": 170,
+    "wires": [
+      [
+        "36253da1.d40882"
+      ]
+    ]
+  },
+  {
+    "id": "d71604fc.05c9d8",
+    "type": "debug",
+    "z": "36d190f2.41f9b",
+    "name": "Debug",
+    "active": true,
+    "console": "true",
+    "complete": "true",
+    "x": 1067,
+    "y": 219,
+    "wires": []
+  },
+  {
+    "id": "36253da1.d40882",
+    "type": "homematic",
+    "z": "36d190f2.41f9b",
+    "ccu": "8abc4a5e.d47378",
+    "device": "59259530.02766c",
+    "function": "setValue",
+    "attribute": "LEVEL",
+    "value": "1",
+    "nodeName": "",
+    "x": 586,
+    "y": 170,
+    "wires": [
+      [
+        "a2381a26.466768"
+      ]
+    ]
+  },
+  {
+    "id": "a37d288e.15cd18",
+    "type": "inject",
+    "z": "36d190f2.41f9b",
+    "name": "node-red vanilla",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 290,
+    "y": 270,
+    "wires": [
+      [
+        "1d176b0e.f8d5c5"
+      ]
+    ]
+  },
+  {
+    "id": "a2381a26.466768",
+    "type": "http request",
+    "z": "36d190f2.41f9b",
+    "name": "",
+    "method": "use",
+    "ret": "txt",
+    "url": "",
+    "tls": "",
+    "x": 840,
+    "y": 219,
+    "wires": [
+      [
+        "d71604fc.05c9d8"
+      ]
+    ]
+  },
+  {
+    "id": "8abc4a5e.d47378",
+    "type": "ccu-address",
+    "z": "",
+    "host": "20.1.0.50",
+    "interfaceName": "BidCos-RF.",
+    "name": "CCU2"
+  },
+  {
+    "id": "59259530.02766c",
+    "type": "homematic-device",
+    "z": "",
+    "channel": "LEQ0990753:1",
+    "name": "DimmerBed"
+  }
+]

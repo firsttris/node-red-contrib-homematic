@@ -3,6 +3,10 @@
         <label for="node-input-ccu"><i class="fa fa-dot-circle-o"></i> CCU</label>
         <input type="text" id="node-input-ccu">
     </div>
+    	<div class="form-row" id="node-form-device">
+        <label for="node-input-device"><i class="fa fa-dot-circle-o"></i> Device</label>
+        <input type="text" id="node-input-device">
+    </div>
 	<div class="form-row" id="node-form-function">
         <label for="node-input-function"><i class="fa fa-list"></i> Function</label>
 		<select id="node-input-function">
@@ -10,10 +14,6 @@
             <option value="setValue">setValue</option>
 			<option value="getValue">getValue</option>
         </select>
-    </div>
-	<div class="form-row" id="node-form-channel">
-        <label for="node-input-channel"><i class="fa fa-dot-circle-o"></i> Channel</label>
-        <input type="text" id="node-input-channel">
     </div>
 	<div class="form-row" id="node-form-attribute">
         <label for="node-input-attribute"><i class="fa fa-list"></i> Attribute</label>
@@ -32,6 +32,10 @@
 			<option value="LEVEL">LEVEL</option>
 			<option value="STATE">STATE</option>
 			<option value="OPEN">OPEN</option>
+			<option value="BRIGHTNESS">BRIGHTNESS</option>
+			<option value="MOTION">MOTION</option>
+			<option value="LOWBAT">LOWBAT</option>
+			<option value="CONFIG_PENDING">CONFIG_PENDING</option>
         </select>
     </div>
 	<div class="form-row hidden" id="node-form-value">
@@ -61,13 +65,12 @@
         color: "#ecf0f1",
         defaults: {
             ccu: {
-                type: "homematic-config"
+                type: "ccu-address"
+            },
+            device: {
+                type: "homematic-device"
             },
             function: {
-                value: "",
-                required: true
-            },
-            channel: {
                 value: "",
                 required: true
             },
@@ -112,7 +115,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="homematic-config">
+<script type="text/x-red" data-template-name="ccu-address">
     <div class="form-row">
         <label for="node-config-input-host"><i class="fa fa-tag"></i> Host</label>
         <input type="text" id="node-config-input-host" placeholder="Host">
@@ -125,22 +128,64 @@
             <option value="BidCos-RF.">BidCos-RF</option>
         </select>
     </div>
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
 </script>
 
-<script type="text/x-red" data-help-name="homematic-config">
+<script type="text/x-red" data-help-name="ccu-address">
     <p>Configure IP and Interface of your CCU</p>
     <p><i>CCU2 uses BidCos-RF</i></p>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('homematic-config', {
+    RED.nodes.registerType('ccu-address', {
         category: 'config',
         defaults: {
             host: {value: ""},
-            interfaceName: {value: ""}
+            interfaceName: {value: ""},
+            name: {value: ""}
         },
         label: function () {
-            return this.host;
+            if(this.name) {
+                return this.name;
+            } else {
+                return this.host;
+            }
+        }
+    });
+</script>
+
+
+<script type="text/x-red" data-template-name="homematic-device">
+    <div class="form-row">
+        <label for="node-config-input-channel"><i class="fa fa-tag"></i> Channel</label>
+        <input type="text" id="node-config-input-channel" placeholder="Channel">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="homematic-device">
+    <p>Configure your channels (devices)</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('homematic-device', {
+        category: 'config',
+        defaults: {
+            channel: {channel: ""},
+            name: {value: ""}
+        },
+        label: function () {
+            if(this.name) {
+                return this.name;
+            } else {
+                return this.channel;
+            }
         }
     });
 </script>

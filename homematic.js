@@ -1,20 +1,28 @@
 module.exports = function (RED) {
     "use strict";
 
-    function HomematicConfigNode (n) {
+    function CCUConfigNode (n) {
         RED.nodes.createNode(this, n);
         this.host = n.host;
         this.interfaceName = n.interfaceName;
     }
 
-    RED.nodes.registerType("homematic-config", HomematicConfigNode);
+    RED.nodes.registerType("ccu-address", CCUConfigNode);
+
+    function DeviceConfigNode (n) {
+        RED.nodes.createNode(this, n);
+        this.channel = n.channel;
+    }
+
+    RED.nodes.registerType("homematic-device", DeviceConfigNode);
 
     function HomematicCommands (n) {
         RED.nodes.createNode(this, n);
         this.ccu = n.ccu;
+        this.device = n.device;
         this.config = RED.nodes.getNode(this.ccu);
+        this.device = RED.nodes.getNode(this.device);
         this.function = n.function;
-        this.channel = n.channel;
         this.attribute = n.attribute;
         this.value = n.value;
         this.nodeName = n.nodeName;
@@ -31,10 +39,10 @@ module.exports = function (RED) {
         this.on('input', (msg) => {
             let script = "";
             if(this.function == "setValue") {
-                script = this.setValue(this.config.interfaceName, this.channel, this.attribute, this.value);
+                script = this.setValue(this.config.interfaceName, this.device.channel, this.attribute, this.value);
             }
             if(this.function == "getValue") {
-                script = this.getValue(this.config.interfaceName, this.channel, this.attribute)
+                script = this.getValue(this.config.interfaceName, this.device.channel, this.attribute)
             }
 
             let headers = {};
@@ -46,10 +54,6 @@ module.exports = function (RED) {
             msg.url = "http://"+this.config.host+"/tclrega.exe";
             msg.payload = script;
 
-            console.log("**************************PAYLOAD START********************************");
-            console.log(msg.headers);
-            console.log(msg.payload);
-            console.log("***************************PAYLOAD END*********************************");
             this.send(msg);
         });
 
