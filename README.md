@@ -11,7 +11,7 @@ node-red-contrib-homematic provides functions to control Homematic devices with 
 <b>Node-RED</b> - is a visual tool for wiring the Internet of Things (IoT) - read more @http://nodered.org<br>
 This node outputs a message to msg.payload containing "remote script calls" which can be send to the CCU using the HttpRequest node.
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic-node.PNG
+![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/homematic-node.PNG
 
 ### Communication
 
@@ -25,7 +25,7 @@ Example shows how to change the level of a dimmer
 
 Inject node ---- Homematic node ---- HttpRequest node ---- Debug node
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-contrib-homematic.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/node-red-contrib-homematic.PNG)
 
 ### Homematic node config
 
@@ -33,23 +33,23 @@ Inject node ---- Homematic node ---- HttpRequest node ---- Debug node
 
 you can configure multiple endpoints
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-homematic-config-ccu.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/node-red-homematic-config-ccu.PNG)
 
 #### Configure your devices
 
 you can configure multiple devices
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-homematic-config-devices.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/node-red-homematic-config-devices.PNG)
 
 your config ccu/devices will be saved..
 
 #### Choose function, channel and attribute
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-homematic-config-node.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/node-red-homematic-config-node.PNG)
 
 #### Configure HttpRequest node like this
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/httpRequestEmpty.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/httpRequestEmpty.PNG)
 
 #
 
@@ -61,7 +61,7 @@ Example shows how to change the level of a dimmer
 
 Inject node ---- Function node ---- HttpRequest node ---- Debug node
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/node-red-homematic-rega.PNG)
+![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/node-red-homematic-rega.PNG)
 
 #### Function node content
 
