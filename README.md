@@ -11,7 +11,7 @@ node-red-contrib-homematic provides functions to control Homematic devices with 
 <b>Node-RED</b> - is a visual tool for wiring the Internet of Things (IoT) - read more @http://nodered.org<br>
 This node outputs a message to msg.payload containing "remote script calls" which can be send to the CCU using the HttpRequest node.
 
-![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic2.PNG)
+![Screenshot](https://dl.dropboxusercontent.com/u/13344648/dev/homematic-node.PNG
 
 ### Communication
 
