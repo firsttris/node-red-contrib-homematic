@@ -114,4 +114,4 @@ You can easily extend this module to fit your needs by editing the html file.
 feel free to create a pull request!
 
 ## License
-[MIT](http://opensource.org/licenses/MIT)
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
