@@ -18,9 +18,9 @@
   "bugs": {
     "url": "https://github.com/firsttris/node-red-contrib-homematic/issues"
   },
-  "node-red"      : {
-      "nodes"     : {
-          "homematic": "homematic.js"
-      }
+  "node-red": {
+    "nodes": {
+      "homematic": "homematic.js"
+    }
   }
 }

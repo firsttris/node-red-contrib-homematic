@@ -2,7 +2,7 @@
 
 :house: Integrate your Homematic devices with <b>Node-RED</b>
 
-[![npm version](https://badge.fury.io/js/node-red-contrib-homematic.svg)](http://badge.fury.io/js/node-red-contrib-homematic) 
+[![npm version](https://badge.fury.io/js/node-red-contrib-homematic.svg)](http://badge.fury.io/js/node-red-contrib-homematic)
 
 ### Features
 
@@ -46,6 +46,13 @@ your config ccu/devices will be saved..
 #### Choose function, channel and attribute
 
 ![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/node-red-homematic-config-node.PNG)
+
+#### You can also pass values into the node!
+
+Just pass the input value as the msg.payload parameter and use the "{{msg.payload}}" syntax in the value field.
+
+![Screenshot](https://github.com/firsttris/node-red-contrib-homematic/blob/master/wiki/node-red-homematic-config-node-custom-value.png)
+
 
 #### Configure HttpRequest node like this
 
