@@ -19,7 +19,7 @@
         <label for="node-input-attribute"><i class="fa fa-list"></i> Attribute</label>
 		<select id="node-input-attribute">
 			<option value=""></option>
-            		<option value="ACTUAL_TEMPERATURE">ACTUAL_TEMPERATURE</option>
+            <option value="ACTUAL_TEMPERATURE">ACTUAL_TEMPERATURE</option>
 			<option value="ACTUAL_HUMIDITY">ACTUAL_HUMIDITY</option>
 			<option value="ABS_HUMIDITY">ABS_HUMIDITY</option>
 			<option value="HUMIDITY">HUMIDITY</option>
@@ -48,6 +48,7 @@
             <option value="FREQUENCY">FREQUENCY</option>
             <option value="VOLTAGE">VOLTAGE</option>
             <option value="POWER">POWER</option>
+            <option value="RAMP_TIME">RAMP_TIME</option>
         </select>
     </div>
 	<div class="form-row hidden" id="node-form-value">
@@ -101,10 +102,10 @@
         outputs: 1,
         icon: "envelope.png",
         label: function () {
-            if(this.nodeName) {
+            if (this.nodeName) {
                 return this.nodeName
             } else if (this.function) {
-                return this.function + " " +this.value;
+                return this.function + " " + this.value;
             } else {
                 return "homematic"
             }
@@ -112,8 +113,8 @@
         labelStyle: function () {
             return (this.nodeName) ? "node_label_italic" : "";
         },
-        oneditprepare : function() {
-            $("#node-input-function").change(function() {
+        oneditprepare: function () {
+            $("#node-input-function").change(function () {
                 var selectedMethod = $("#node-input-function").val();
                 if (selectedMethod === "setValue") {
                     $("#node-form-value").show();
@@ -155,12 +156,12 @@
     RED.nodes.registerType('ccu-address', {
         category: 'config',
         defaults: {
-            host: {value: ""},
-            interfaceName: {value: ""},
-            name: {value: ""}
+            host: { value: "" },
+            interfaceName: { value: "" },
+            name: { value: "" }
         },
         label: function () {
-            if(this.name) {
+            if (this.name) {
                 return this.name;
             } else {
                 return this.host;
@@ -189,11 +190,11 @@
     RED.nodes.registerType('homematic-device', {
         category: 'config',
         defaults: {
-            channel: {channel: ""},
-            name: {value: ""}
+            channel: { channel: "" },
+            name: { value: "" }
         },
         label: function () {
-            if(this.name) {
+            if (this.name) {
                 return this.name;
             } else {
                 return this.channel;
