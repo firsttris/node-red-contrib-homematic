@@ -32,8 +32,6 @@ module.exports = function(RED) {
       let returnValue = value;
       // make sure that only this object is possible!
       if (value === "{{msg.payload}}") {
-        node.debug("Extracting custom payload!");
-        node.debug(JSON.stringify(msg));
         returnValue = msg.payload;
       }
       return returnValue;

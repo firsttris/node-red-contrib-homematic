@@ -88,6 +88,9 @@ return msg;
 
 Find the exported flow example in "test" directory
 
+### XML-RPC API
+[Dokumentation](http://www.eq-3.de/Downloads/eq3/download%20bereich/hm_web_ui_doku/HM_XmlRpc_API.pdf)
+
 ### Install
 
 ```
